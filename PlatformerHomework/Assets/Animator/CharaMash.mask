@@ -376,81 +376,81 @@ AvatarMask:
   - m_Path: rig/root/ORG-hips/EX_dress_back1.L/EX_dress_back2.L
     m_Weight: 1
   - m_Path: rig/root/ORG-hips/EX_dress_back1.L/EX_dress_back2.L/EX_dress_back3.L
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: rig/root/ORG-hips/EX_dress_back1.L/EX_dress_back2.L/EX_dress_back3.L/EX_dress_back4.L
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: rig/root/ORG-hips/EX_dress_back1.L/EX_dress_back2.L/EX_dress_back3.L/EX_dress_back4.L/EX_dress_back4.L_end
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: rig/root/ORG-hips/EX_dress_back1.R
     m_Weight: 1
   - m_Path: rig/root/ORG-hips/EX_dress_back1.R/EX_dress_back2.R
     m_Weight: 1
   - m_Path: rig/root/ORG-hips/EX_dress_back1.R/EX_dress_back2.R/EX_dress_back3.R
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: rig/root/ORG-hips/EX_dress_back1.R/EX_dress_back2.R/EX_dress_back3.R/EX_dress_back4.R
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: rig/root/ORG-hips/EX_dress_back1.R/EX_dress_back2.R/EX_dress_back3.R/EX_dress_back4.R/EX_dress_back4.R_end
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: rig/root/ORG-hips/EX_dress_flap1.L
     m_Weight: 1
   - m_Path: rig/root/ORG-hips/EX_dress_flap1.L/EX_dress_flap2.L
     m_Weight: 1
   - m_Path: rig/root/ORG-hips/EX_dress_flap1.L/EX_dress_flap2.L/EX_dress_flap3.L
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: rig/root/ORG-hips/EX_dress_flap1.L/EX_dress_flap2.L/EX_dress_flap3.L/EX_dress_flap4.L
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: rig/root/ORG-hips/EX_dress_flap1.L/EX_dress_flap2.L/EX_dress_flap3.L/EX_dress_flap4.L/EX_dress_flap4.L_end
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: rig/root/ORG-hips/EX_dress_flap1.R
     m_Weight: 1
   - m_Path: rig/root/ORG-hips/EX_dress_flap1.R/EX_dress_flap2.R
     m_Weight: 1
   - m_Path: rig/root/ORG-hips/EX_dress_flap1.R/EX_dress_flap2.R/EX_dress_flap3.R
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: rig/root/ORG-hips/EX_dress_flap1.R/EX_dress_flap2.R/EX_dress_flap3.R/EX_dress_flap4.R
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: rig/root/ORG-hips/EX_dress_flap1.R/EX_dress_flap2.R/EX_dress_flap3.R/EX_dress_flap4.R/EX_dress_flap4.R_end
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: rig/root/ORG-hips/EX_dress_flap_back1
     m_Weight: 1
   - m_Path: rig/root/ORG-hips/EX_dress_flap_back1/EX_dress_flap_back2
     m_Weight: 1
   - m_Path: rig/root/ORG-hips/EX_dress_flap_back1/EX_dress_flap_back2/EX_dress_flap_back3
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: rig/root/ORG-hips/EX_dress_flap_back1/EX_dress_flap_back2/EX_dress_flap_back3/EX_dress_flap_back4
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: rig/root/ORG-hips/EX_dress_flap_back1/EX_dress_flap_back2/EX_dress_flap_back3/EX_dress_flap_back4/EX_dress_flap_back4_end
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: rig/root/ORG-hips/EX_dress_flap_front1
     m_Weight: 1
   - m_Path: rig/root/ORG-hips/EX_dress_flap_front1/EX_dress_flap_front2
     m_Weight: 1
   - m_Path: rig/root/ORG-hips/EX_dress_flap_front1/EX_dress_flap_front2/EX_dress_flap_front3
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: rig/root/ORG-hips/EX_dress_flap_front1/EX_dress_flap_front2/EX_dress_flap_front3/EX_dress_flap_front4
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: rig/root/ORG-hips/EX_dress_flap_front1/EX_dress_flap_front2/EX_dress_flap_front3/EX_dress_flap_front4/EX_dress_flap_front4_end
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: rig/root/ORG-hips/EX_dress_flap_front1.L
     m_Weight: 1
   - m_Path: rig/root/ORG-hips/EX_dress_flap_front1.L/EX_dress_flap_front2.L
     m_Weight: 1
   - m_Path: rig/root/ORG-hips/EX_dress_flap_front1.L/EX_dress_flap_front2.L/EX_dress_flap_front3.L
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: rig/root/ORG-hips/EX_dress_flap_front1.L/EX_dress_flap_front2.L/EX_dress_flap_front3.L/EX_dress_flap_front4.L
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: rig/root/ORG-hips/EX_dress_flap_front1.L/EX_dress_flap_front2.L/EX_dress_flap_front3.L/EX_dress_flap_front4.L/EX_dress_flap_front4.L_end
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: rig/root/ORG-hips/EX_dress_flap_front1.R
     m_Weight: 1
   - m_Path: rig/root/ORG-hips/EX_dress_flap_front1.R/EX_dress_flap_front2.R
     m_Weight: 1
   - m_Path: rig/root/ORG-hips/EX_dress_flap_front1.R/EX_dress_flap_front2.R/EX_dress_flap_front3.R
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: rig/root/ORG-hips/EX_dress_flap_front1.R/EX_dress_flap_front2.R/EX_dress_flap_front3.R/EX_dress_flap_front4.R
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: rig/root/ORG-hips/EX_dress_flap_front1.R/EX_dress_flap_front2.R/EX_dress_flap_front3.R/EX_dress_flap_front4.R/EX_dress_flap_front4.R_end
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: rig/root/ORG-hips/MCH-hips_fk_ns_intr
     m_Weight: 0
   - m_Path: rig/root/ORG-hips/MCH-hips_fk_ns_intr/MCH-hips_fk_ns_intr_end
