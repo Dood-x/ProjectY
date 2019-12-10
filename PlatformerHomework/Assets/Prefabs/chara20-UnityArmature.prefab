@@ -5405,6 +5405,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1411966265159179150}
   - component: {fileID: 6260842514920796506}
+  - component: {fileID: -3205631523261339030}
+  - component: {fileID: 3166984356778635270}
   m_Layer: 0
   m_Name: chara20-UnityArmature
   m_TagString: Untagged
@@ -5450,6 +5452,42 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-3205631523261339030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2721042852371179933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e346c7756e86e244a30f65dc011a56a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camScript: {fileID: 0}
+  walkSpeed: 1.5
+  runSpeed: 6
+  rotSpeed: 20
+  jumpSpeed: 20
+  gravity: 9.81
+--- !u!143 &3166984356778635270
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2721042852371179933}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2724600808504090866
 GameObject:
   m_ObjectHideFlags: 0
