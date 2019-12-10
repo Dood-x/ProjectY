@@ -55,7 +55,7 @@ public class Player : MonoBehaviour
         float animSpeed = Mathf.Max(Mathf.Abs(h), Mathf.Abs(v));
 
         animator.SetFloat("Speed", animSpeed);
-
+        animator.SetBool("Grounded", cc.isGrounded);
         //Vector3 moveDirection = Vector3.zero;
 
 
@@ -128,13 +128,11 @@ public class Player : MonoBehaviour
         //jumping allowes double jump
         if (Input.GetButtonDown("Jump") && jumpAmount < maxJumpAmount)
         {
-            vSpeed = jumpSpeed;
-            jumpAmount++;
+            animator.SetBool("Leap", true);
         }
 
         moveDirection.y = vSpeed * Time.deltaTime;
 
-        Debug.Log(vSpeed);
         cc.Move(Vector3.forward * 0.001f);
 
         // move the character!
@@ -156,5 +154,15 @@ public class Player : MonoBehaviour
             lookOffset.z = -Mathf.Abs(lookOffset.z);
             camScript.Lookoffset = lookOffset;
         }
+    }
+
+    public void Leap()
+    {
+        vSpeed = jumpSpeed;
+        jumpAmount++;
+        cc.Move(Vector3.up * vSpeed * Time.deltaTime);
+        animator.SetBool("Leap", false);
+        Debug.Log("Leap");
+
     }
 }
