@@ -18,7 +18,6 @@ public class Player : MonoBehaviour
     public float jumpSpeed = 20f;
     public float gravity = 9.81f;
     //the input will be remembered but the jump will be delayed
-    public float delayBetweenDoubleJump = 0.5f;
 
     public int maxJumpAmount = 2;
 
@@ -103,14 +102,6 @@ public class Player : MonoBehaviour
         //switches the camera look offset depending on whether we are going forward or back
         SwitchDirection(v);
 
-        if(jumpAmount>0 && jumpAmount < maxJumpAmount && !cc.isGrounded)
-        {
-            //if (jumpTimer >= delayBetweenDoubleJump)
-            //{
-            //}
-        }
-
-       
 
         if (cc.isGrounded)
         {
