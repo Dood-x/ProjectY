@@ -15,6 +15,13 @@ public class Player : MonoBehaviour
     public float walkSpeed = 1.5f;
     public float runSpeed = 6f;
     public float rotSpeed = 20f;
+    public float jumpSpeed = 20f;
+    public float gravity = 9.81f;
+
+    float vSpeed = 0f;
+    int jumpAmount = 0;
+
+    Vector3 moveDirection;
 
     // Start is called before the first frame update
     void Start()
@@ -30,6 +37,8 @@ public class Player : MonoBehaviour
         {
             cam = Camera.main;
         }
+
+        moveDirection = Vector3.zero;
     }
 
     // Update is called once per frame
@@ -43,37 +52,43 @@ public class Player : MonoBehaviour
 
         animator.SetFloat("Speed", animSpeed);
 
+        //Vector3 moveDirection = Vector3.zero;
+
+
         if (animSpeed > 0.1f)
         {
+            Vector3 moveHorizontal = new Vector3(h, 0, v);
             // direction on the XZ plane determined by the inputs
-            Vector3 moveDirection = new Vector3(h, 0f, v);
             // make the direction value lie on a unit circle
-            moveDirection.Normalize();
+            moveHorizontal.Normalize();
             // the strength of the movement is as big as the highest input
-            moveDirection *= Mathf.Max(Mathf.Abs(h), Mathf.Abs(v));
+            moveHorizontal *= Mathf.Max(Mathf.Abs(h), Mathf.Abs(v));
 
             // buffer, input should exceed 0.1 for the character to move
             if (animSpeed < 0.1)
             {
-                moveDirection = Vector3.zero;
+                moveHorizontal = Vector3.zero;
             }
 
 
             // rotate the direction by the cameras local y rotation
-            //moveDirection = Quaternion.Euler(0, cam.transform.rotation.eulerAngles.y, 0) * moveDirection;
+            //moveHorizontal = Quaternion.Euler(0, cam.transform.rotation.eulerAngles.y, 0) * moveDirection;
 
             // we linearly interpolate between the walk and run speeds using the animation factor thats in the 0-1 interval
             float movementSpeed = Mathf.Lerp(walkSpeed, runSpeed, animSpeed);
 
-            moveDirection *= Time.deltaTime * movementSpeed;
+            moveHorizontal *= Time.deltaTime * movementSpeed;
 
             // move the character
-            cc.Move(moveDirection);
+            //cc.Move(moveHorizontal);
 
             //turn the movement direction into a rotation
-            Quaternion rotation = Quaternion.LookRotation(moveDirection.normalized);
+            Quaternion rotation = Quaternion.LookRotation(moveHorizontal.normalized);
             // rotate the characetr in the direction of movement
             this.transform.rotation = Quaternion.Slerp(this.transform.rotation, rotation, rotSpeed*Time.deltaTime);
+
+            moveDirection.x = moveHorizontal.x;
+            moveDirection.z = moveHorizontal.z;
         }
 
         //Vector3 crossForward = Vector3.Cross(this.transform.forward, Vector3.forward);
@@ -88,5 +103,23 @@ public class Player : MonoBehaviour
 
         //}
         //Debug.Log(crossForward);
+
+        if (Input.GetButtonDown("Jump") && jumpAmount < 2)
+        {
+            Debug.Log("Jumped");
+            vSpeed = jumpSpeed;
+            jumpAmount++;
+        }
+
+        if (cc.isGrounded)
+        {
+            jumpAmount = 0;
+        }
+
+        vSpeed -= gravity * Time.deltaTime;
+        moveDirection.y = vSpeed * Time.deltaTime;
+        Debug.Log(moveDirection.y);
+        cc.Move(moveDirection);
+
     }
 }
