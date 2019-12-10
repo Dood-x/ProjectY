@@ -96,10 +96,9 @@ public class Player : MonoBehaviour
         {
             moveDirection = Vector3.zero;
         }
-           
 
         //switches the camera look offset depending on whether we are going forward or back
-        SwitchDirection(v);
+        //SwitchDirection(v); ubija me, ne treba za sad
 
 
         if (cc.isGrounded)
@@ -128,9 +127,8 @@ public class Player : MonoBehaviour
         // move the character!
         cc.Move(moveDirection);
 
-        Debug.Log(animSpeed);
-
     }
+
 
     void SwitchDirection(float v)
     {
