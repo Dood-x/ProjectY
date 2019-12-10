@@ -57,7 +57,6 @@ public class Player : MonoBehaviour
         animator.SetBool("Grounded", cc.isGrounded);
         //Vector3 moveDirection = Vector3.zero;
 
-
         if (animSpeed > 0.1f)
         {
             Vector3 moveHorizontal = new Vector3(h, 0, v);
@@ -128,6 +127,8 @@ public class Player : MonoBehaviour
 
         // move the character!
         cc.Move(moveDirection);
+
+        Debug.Log(animSpeed);
 
     }
 
