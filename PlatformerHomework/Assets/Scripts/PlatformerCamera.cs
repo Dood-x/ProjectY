@@ -12,7 +12,7 @@ using System;
 // TODO
 // transfer to the new collision algorithm
 
-namespace ThirdPersonCameraWithLockOn{
+namespace PlatformerHomework{
 
 
 	struct CameraPosition{
@@ -36,7 +36,7 @@ namespace ThirdPersonCameraWithLockOn{
 
 	[RequireComponent(typeof(Camera))]
 	[AddComponentMenu("ThirdPersonCameraWithLockOn")]
-	public class ThirdPersonCamera : MonoBehaviour {
+	public class PlatformerCamera : MonoBehaviour {
 
 		private enum ButtonPress
 		{
@@ -52,11 +52,17 @@ namespace ThirdPersonCameraWithLockOn{
 			LockOn, // lock on mode
 			Off // set this mode when you want to manipulate the camera externally
 		}
-		
-		[Header("General")]
-		
 
-		[SerializeField]
+        [Header("PlatformerHomework")]
+        public bool limitXRotation = false;
+        public float xMinLimit = 0f;
+        public float xMaxLimit = 120f;
+
+
+        [Header("General")]
+
+
+        [SerializeField]
 		[Tooltip("what object does the camera follow in the scene, if none the camera will find an onbject tagged 'Player'")]
 		private Transform follow;
 
@@ -1394,6 +1400,11 @@ namespace ThirdPersonCameraWithLockOn{
 
 				}
 				y = ClampAngle(y, yMinLimit, yMaxLimit);
+
+                    if (limitXRotation)
+                    {
+                        x = ClampAngle(x, xMinLimit, xMaxLimit);
+                    }
 
 
 				//make sure the camera can keep up with the movement speed

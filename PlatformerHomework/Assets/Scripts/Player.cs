@@ -1,13 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using ThirdPersonCameraWithLockOn;
+using PlatformerHomework;
 
 public class Player : MonoBehaviour
 {
 
     private CharacterController cc;
-    public ThirdPersonCamera camScript;
+    public PlatformerCamera camScript;
     private Animator animator;
 
     private Camera cam;
@@ -35,8 +35,9 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float h = Input.GetAxis("Horizontal");
-        float v = Input.GetAxis("Vertical");
+        //float h = Input.GetAxis("Horizontal");
+        float v = Input.GetAxis("Horizontal");
+        float h = 0;
 
         float animSpeed = Mathf.Max(Mathf.Abs(h), Mathf.Abs(v));
 
@@ -59,7 +60,7 @@ public class Player : MonoBehaviour
 
 
             // rotate the direction by the cameras local y rotation
-            moveDirection = Quaternion.Euler(0, cam.transform.rotation.eulerAngles.y, 0) * moveDirection;
+            //moveDirection = Quaternion.Euler(0, cam.transform.rotation.eulerAngles.y, 0) * moveDirection;
 
             // we linearly interpolate between the walk and run speeds using the animation factor thats in the 0-1 interval
             float movementSpeed = Mathf.Lerp(walkSpeed, runSpeed, animSpeed);
@@ -74,5 +75,18 @@ public class Player : MonoBehaviour
             // rotate the characetr in the direction of movement
             this.transform.rotation = Quaternion.Slerp(this.transform.rotation, rotation, rotSpeed*Time.deltaTime);
         }
+
+        //Vector3 crossForward = Vector3.Cross(this.transform.forward, Vector3.forward);
+        ////if(crossForward)
+        //if (crossForward.y > 0.0f)
+        //{
+        //    camScript.lookoffset.z = Mathf.Abs(camScript.lookoffset.z);
+        //}
+        //else if (crossForward.y < 0.0f)
+        //{
+        //    camScript.lookoffset.z = -Mathf.Abs(camScript.lookoffset.z);
+
+        //}
+        //Debug.Log(crossForward);
     }
 }

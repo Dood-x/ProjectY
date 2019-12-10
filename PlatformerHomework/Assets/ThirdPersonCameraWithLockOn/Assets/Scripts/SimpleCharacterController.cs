@@ -5,11 +5,11 @@
 using UnityEngine;
 using System.Collections;
 using System.Linq;
-using ThirdPersonCameraWithLockOn;
+using PlatformerHomework;
 
 public class SimpleCharacterController : MonoBehaviour {
 
-	public ThirdPersonCamera camScript;
+	public PlatformerCamera camScript;
 
 
     private Animator animator;

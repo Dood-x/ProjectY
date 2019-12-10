@@ -5,7 +5,7 @@
 using UnityEngine;
 using System.Collections;
 
-namespace ThirdPersonCameraWithLockOn
+namespace PlatformerHomework
 {
 
 	public class FadeObject : MonoBehaviour {
