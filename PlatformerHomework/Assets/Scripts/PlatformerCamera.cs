@@ -446,7 +446,7 @@ namespace PlatformerHomework{
 		public Vector3 Lookoffset
 		{
 			get { return lookoffset; }
-			private set { lookoffset = value; }
+			set { lookoffset = value; }
 		}
 
 		

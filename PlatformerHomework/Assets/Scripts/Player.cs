@@ -18,6 +18,8 @@ public class Player : MonoBehaviour
     public float jumpSpeed = 20f;
     public float gravity = 9.81f;
 
+    public int maxJumpAmount;
+
     float vSpeed = 0f;
     int jumpAmount = 0;
 
@@ -85,26 +87,22 @@ public class Player : MonoBehaviour
             //turn the movement direction into a rotation
             Quaternion rotation = Quaternion.LookRotation(moveHorizontal.normalized);
             // rotate the characetr in the direction of movement
-            this.transform.rotation = Quaternion.Slerp(this.transform.rotation, rotation, rotSpeed*Time.deltaTime);
+            this.transform.rotation = Quaternion.Slerp(this.transform.rotation, rotation, rotSpeed * Time.deltaTime);
 
             moveDirection.x = moveHorizontal.x;
             moveDirection.z = moveHorizontal.z;
         }
+        else
+        {
+            moveDirection = Vector3.zero;
+        }
+           
 
-        //Vector3 crossForward = Vector3.Cross(this.transform.forward, Vector3.forward);
-        ////if(crossForward)
-        //if (crossForward.y > 0.0f)
-        //{
-        //    camScript.lookoffset.z = Mathf.Abs(camScript.lookoffset.z);
-        //}
-        //else if (crossForward.y < 0.0f)
-        //{
-        //    camScript.lookoffset.z = -Mathf.Abs(camScript.lookoffset.z);
+        //switches the camera look offset depending on whether we are going forward or back
+        SwitchDirection(v);
 
-        //}
-        //Debug.Log(crossForward);
-
-        if (Input.GetButtonDown("Jump") && jumpAmount < 2)
+        //jumping allowes double jump
+        if (Input.GetButtonDown("Jump") && jumpAmount < maxJumpAmount)
         {
             Debug.Log("Jumped");
             vSpeed = jumpSpeed;
@@ -114,12 +112,38 @@ public class Player : MonoBehaviour
         if (cc.isGrounded)
         {
             jumpAmount = 0;
+            moveDirection.y = 0f;
+            vSpeed = 0f;
+        }
+        else
+        {
+            vSpeed -= gravity * Time.deltaTime;
+            // speed of movement * time is the amount we need to move the character
+            moveDirection.y = vSpeed * Time.deltaTime;
         }
 
-        vSpeed -= gravity * Time.deltaTime;
-        moveDirection.y = vSpeed * Time.deltaTime;
-        Debug.Log(moveDirection.y);
+        
+        //Debug.Log(moveDirection.y);
+
+        // move the character!
         cc.Move(moveDirection);
 
+    }
+
+    void SwitchDirection(float v)
+    {
+        Vector3 lookOffset = camScript.Lookoffset;
+        Debug.Log(lookOffset);
+
+        if (v > 0)
+        {
+            lookOffset.z = Mathf.Abs(lookOffset.z);
+            camScript.Lookoffset = lookOffset;
+        }
+        else if (v < 0)
+        {
+            lookOffset.z = -Mathf.Abs(lookOffset.z);
+            camScript.Lookoffset = lookOffset;
+        }
     }
 }
