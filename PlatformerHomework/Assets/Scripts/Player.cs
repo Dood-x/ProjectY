@@ -152,7 +152,6 @@ public class Player : MonoBehaviour
         jumpAmount++;
         cc.Move(Vector3.up * vSpeed * Time.deltaTime);
         animator.SetBool("Leap", false);
-        Debug.Log("Leap");
 
     }
 }
