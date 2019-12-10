@@ -110,29 +110,32 @@ public class Player : MonoBehaviour
             //}
         }
 
-        //jumping allowes double jump
-        if (Input.GetButtonDown("Jump") && jumpAmount < maxJumpAmount)
-        {
-            Debug.Log("Jumped");
-            vSpeed = jumpSpeed;
-            jumpAmount++;
-        }
+       
 
         if (cc.isGrounded)
         {
             jumpAmount = 0;
             moveDirection.y = 0f;
-            vSpeed = 0f;
+            vSpeed = -0.1f;
         }
         else
         {
             vSpeed -= gravity * Time.deltaTime;
             // speed of movement * time is the amount we need to move the character
-            moveDirection.y = vSpeed * Time.deltaTime;
+            
         }
 
-        
-        //Debug.Log(moveDirection.y);
+        //jumping allowes double jump
+        if (Input.GetButtonDown("Jump") && jumpAmount < maxJumpAmount)
+        {
+            vSpeed = jumpSpeed;
+            jumpAmount++;
+        }
+
+        moveDirection.y = vSpeed * Time.deltaTime;
+
+        Debug.Log(vSpeed);
+        cc.Move(Vector3.forward * 0.001f);
 
         // move the character!
         cc.Move(moveDirection);
@@ -142,7 +145,6 @@ public class Player : MonoBehaviour
     void SwitchDirection(float v)
     {
         Vector3 lookOffset = camScript.Lookoffset;
-        Debug.Log(lookOffset);
 
         if (v > 0)
         {
