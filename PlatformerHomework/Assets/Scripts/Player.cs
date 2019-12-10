@@ -98,10 +98,9 @@ public class Player : MonoBehaviour
         {
             moveDirection = Vector3.zero;
         }
-           
 
         //switches the camera look offset depending on whether we are going forward or back
-        SwitchDirection(v);
+        //SwitchDirection(v); ubija me, ne treba za sad
 
         if(jumpAmount>0 && jumpAmount < maxJumpAmount && !cc.isGrounded)
         {
@@ -130,14 +129,11 @@ public class Player : MonoBehaviour
             // speed of movement * time is the amount we need to move the character
             moveDirection.y = vSpeed * Time.deltaTime;
         }
-
-        
         //Debug.Log(moveDirection.y);
-
         // move the character!
         cc.Move(moveDirection);
-
     }
+
 
     void SwitchDirection(float v)
     {
