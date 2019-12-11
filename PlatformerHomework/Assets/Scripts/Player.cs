@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using PlatformerHomework;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -10,27 +11,57 @@ public class Player : MonoBehaviour
     public PlatformerCamera camScript;
     private Animator animator;
 
+    public Slider healthSlider;
+    public Text crystalsTxt;
+
+
     private Camera cam;
+    [Header("Stats")]
 
     public float walkSpeed = 1.5f;
     public float runSpeed = 6f;
     public float rotSpeed = 20f;
     public float jumpSpeed = 20f;
-    public float gravity = 9.81f;
-    //the input will be remembered but the jump will be delayed
-
+    public float maxHealth = 100f;
     public int maxJumpAmount = 2;
+
+    [Header("Out of bounds")]
+
+    public float yKillHeight = -100f;
+    public float outOfBoundsDamage = 30f;
+
+    [Header("Physics")]
+    public float gravity = 9.81f;
+    public float gravityAccelOnGround = -0.3f;
+
 
     float vSpeed = 0f;
     int jumpAmount = 0;
 
     Vector3 moveDirection;
+    float health;
+    int crystals;
+    int maxCrystals;
+
+    private struct RespawnPoint
+    {
+        public Vector3 position;
+        public Quaternion lookDirection;
+
+        public RespawnPoint(Vector3 pos, Quaternion lookDir)
+        {
+            position = pos;
+            lookDirection = lookDir;
+        }
+    }
+
+    List<RespawnPoint> checkpoints = new List<RespawnPoint>();
 
     // Start is called before the first frame update
     void Start()
     {
         cc = GetComponent<CharacterController>();
-		animator = GetComponent<Animator> ();
+        animator = GetComponent<Animator>();
 
         if (camScript != null)
         {
@@ -42,11 +73,19 @@ public class Player : MonoBehaviour
         }
 
         moveDirection = Vector3.zero;
+        health = maxHealth;
+        maxCrystals = GameObject.FindGameObjectsWithTag("Crystal").Length;
+        RespawnPoint startPoint = new RespawnPoint(this.transform.position, this.transform.localRotation);
+        checkpoints.Add(startPoint);
+        healthSlider.value = health/maxHealth;
     }
 
     // Update is called once per frame
     void Update()
     {
+        //crystalsTxt.text = "" + crystals + "/" + maxCrystals;
+
+        // movement input
         //float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Horizontal");
         float h = 0;
@@ -56,6 +95,13 @@ public class Player : MonoBehaviour
         animator.SetFloat("Speed", animSpeed);
         animator.SetBool("Grounded", cc.isGrounded);
         //Vector3 moveDirection = Vector3.zero;
+
+        //if the player falls to y kill height kill the player
+        if (this.transform.position.y < yKillHeight)
+        {
+            OutOfBounds();
+            return;
+        }
 
         if (animSpeed > 0.1f)
         {
@@ -105,13 +151,13 @@ public class Player : MonoBehaviour
         {
             jumpAmount = 0;
             moveDirection.y = 0f;
-            vSpeed = -0.1f;
+            vSpeed = gravityAccelOnGround;
         }
         else
         {
             vSpeed -= gravity * Time.deltaTime;
             // speed of movement * time is the amount we need to move the character
-            
+
         }
 
         //jumping allowes double jump
@@ -153,5 +199,49 @@ public class Player : MonoBehaviour
         cc.Move(Vector3.up * vSpeed * Time.deltaTime);
         animator.SetBool("Leap", false);
 
+    }
+
+    public void OutOfBounds()
+    {
+        TakeDamage(outOfBoundsDamage);
+        //respawn
+        Respawn();
+
+    }
+
+    public void TakeDamage(float damage)
+    {
+        health -= damage;
+        healthSlider.value = health/maxHealth;
+        if (health <= 0)
+        {
+            //death animation
+            //Respawn();
+        }
+    }
+
+    public void Respawn()
+    {
+        if (health > 0)
+        {
+            this.transform.position = checkpoints[checkpoints.Count - 1].position;
+            this.transform.localRotation = checkpoints[checkpoints.Count - 1].lookDirection;
+        }
+        else
+        {
+            this.transform.position = checkpoints[0].position;
+            this.transform.localRotation = checkpoints[0].lookDirection;
+            // respawn with full health
+            health = maxHealth;
+            healthSlider.value = health;
+        }
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Checkpoint")
+        {
+            checkpoints.Add(new RespawnPoint(other.transform.position, other.transform.localRotation));
+        }
     }
 }
