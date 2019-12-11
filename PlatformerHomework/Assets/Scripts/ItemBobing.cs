@@ -23,7 +23,6 @@ public class ItemBobing : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         int sign = goDown ? -1 : 1;
         //float velocity = bobbingSpeed * Time.deltaTime;
         //transform.position += Vector3.up * bobbingSpeed * Time.deltaTime * sign;
