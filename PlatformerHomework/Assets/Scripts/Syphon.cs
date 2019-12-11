@@ -15,4 +15,9 @@ public class Syphon : MonoBehaviour
     {
         
     }
+
+    public void OnTriggerStay(Collider Other)
+    {
+    }
+
 }
