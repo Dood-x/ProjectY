@@ -14,6 +14,8 @@ public class Player : MonoBehaviour
     public Slider healthSlider;
     public Text crystalsTxt;
 
+   // public Syphon syphonScript;
+
 
     private Camera cam;
     [Header("Stats")]
@@ -42,6 +44,8 @@ public class Player : MonoBehaviour
     float health;
     int crystals;
     int maxCrystals;
+
+    SphereCollider syphonCollider;
 
     private struct RespawnPoint
     {
@@ -79,6 +83,7 @@ public class Player : MonoBehaviour
         checkpoints.Add(startPoint);
         healthSlider.value = health/maxHealth;
         WriteCrystals();
+        syphonCollider = GetComponentInChildren<SphereCollider>();
     }
 
     // Update is called once per frame
@@ -257,4 +262,5 @@ public class Player : MonoBehaviour
             Destroy(other.gameObject);
         }
     }
+
 }

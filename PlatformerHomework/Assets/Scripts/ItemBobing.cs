@@ -41,4 +41,15 @@ public class ItemBobing : MonoBehaviour
         transform.Rotate(spinningSpeed * Time.deltaTime, Space.World);
         Debug.Log(goDown);
     }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            //Syphon syphonScript = other.gameObject.AddComponent<Syphon>();
+            //syphonScript.player = transform;
+            Syphon syphonScript = gameObject.AddComponent<Syphon>();
+            syphonScript.player = other.transform;
+        }
+    }
 }

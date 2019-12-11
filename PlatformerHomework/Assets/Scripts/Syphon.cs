@@ -9,6 +9,8 @@ public class Syphon : MonoBehaviour
     public float acceleration = 10f;
 
     float speed = 0;
+
+    public Transform player;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,20 +20,17 @@ public class Syphon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-    }
-
-    public void OnTriggerStay(Collider Other)
-    {
-        if (Other.gameObject.tag == "Player")
+        //go after the player
+        if (speed < maxSpeed)
         {
-            //go after the player
-            if(speed < maxSpeed)
-            {
-                speed += acceleration * Time.fixedDeltaTime;
-            }
-
+            speed += acceleration * Time.fixedDeltaTime;
         }
+
+        Vector3 direction = player.position - transform.position;
+        direction.Normalize();
+        transform.position += direction * speed * Time.deltaTime;
+
+        
     }
 
 }
