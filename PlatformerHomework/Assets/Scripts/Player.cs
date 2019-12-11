@@ -78,12 +78,13 @@ public class Player : MonoBehaviour
         RespawnPoint startPoint = new RespawnPoint(this.transform.position, this.transform.localRotation);
         checkpoints.Add(startPoint);
         healthSlider.value = health/maxHealth;
+        WriteCrystals();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //crystalsTxt.text = "" + crystals + "/" + maxCrystals;
+        
 
         // movement input
         //float h = Input.GetAxis("Horizontal");
@@ -237,11 +238,23 @@ public class Player : MonoBehaviour
         }
     }
 
+    void WriteCrystals()
+    {
+        crystalsTxt.text = "Crystals: " + crystals + "/" + maxCrystals;
+    }
+
     public void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Checkpoint")
         {
             checkpoints.Add(new RespawnPoint(other.transform.position, other.transform.localRotation));
+        }
+
+        if (other.gameObject.tag == "Crystal")
+        {
+            crystals++;
+            WriteCrystals();
+            Destroy(other.gameObject);
         }
     }
 }
