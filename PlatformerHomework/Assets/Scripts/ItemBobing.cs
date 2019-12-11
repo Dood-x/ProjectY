@@ -20,7 +20,6 @@ public class ItemBobing : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         int sign = goDown ? -1 : 1;
         transform.position += Vector3.up * bobbingSpeed * Time.deltaTime * sign;
         if (Mathf.Abs(transform.position.y - startPositon.y) > amplitude)
