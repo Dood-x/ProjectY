@@ -18398,13 +18398,13 @@ MonoBehaviour:
   walkSpeed: 1.5
   runSpeed: 6
   rotSpeed: 20
-  jumpSpeed: 20
+  jumpSpeed: 5
   maxHealth: 100
   maxJumpAmount: 2
-  yKillHeight: -100
+  yKillHeight: -10
   outOfBoundsDamage: 30
   gravity: 9.81
-  gravityAccelOnGround: -0.3
+  gravityAccelOnGround: -4
 --- !u!95 &4334717263717223818
 Animator:
   serializedVersion: 3
