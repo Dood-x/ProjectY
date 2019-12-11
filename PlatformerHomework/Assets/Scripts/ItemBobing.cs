@@ -5,16 +5,19 @@ using UnityEngine;
 public class ItemBobing : MonoBehaviour
 {
     public float amplitude = 0.5f;
-    public float bobbingSpeed = 10f;
+    public float bobbingTime = 1f;
     public Vector3 spinningSpeed;
 
 
-    Vector3 startPositon;
+    Vector3 startPosition;
     bool goDown;
+    Vector3 smoothSpeed;
+    float startTime;
     // Start is called before the first frame update
     void Start()
     {
-        startPositon = transform.position; 
+        startPosition = transform.position;
+        startTime = Time.time;
     }
 
     // Update is called once per frame
@@ -22,13 +25,21 @@ public class ItemBobing : MonoBehaviour
     {
 
         int sign = goDown ? -1 : 1;
-        transform.position += Vector3.up * bobbingSpeed * Time.deltaTime * sign;
-        if (Mathf.Abs(transform.position.y - startPositon.y) > amplitude)
+        //float velocity = bobbingSpeed * Time.deltaTime;
+        //transform.position += Vector3.up * bobbingSpeed * Time.deltaTime * sign;
+        //transform.position = Vector3.SmoothDamp(transform.position, startPosition + Vector3.up * amplitude * sign, ref smoothSpeed, bobbingSpeed);
+        Vector3 newPos = transform.position;
+        float t = (Time.time - startTime) / bobbingTime;
+        newPos.y = Mathf.SmoothStep((startPosition + Vector3.up * amplitude * sign * -1f).y, (startPosition + Vector3.up * amplitude * sign).y, t);
+        transform.position = newPos;
+        if (sign*(transform.position.y - startPosition.y) >= amplitude - 0.001f)
         {
-            transform.position = startPositon + Vector3.up * amplitude * sign;
+            transform.position = startPosition + Vector3.up * amplitude * sign;
             goDown = !goDown;
+            startTime = Time.time;
         }
 
         transform.Rotate(spinningSpeed * Time.deltaTime, Space.World);
+        Debug.Log(goDown);
     }
 }
