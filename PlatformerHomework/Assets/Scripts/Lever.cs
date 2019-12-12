@@ -31,7 +31,6 @@ public class Lever : MonoBehaviour
         if(portcullisAnim)
             portcullisAnim.speed = 0;
 
-        Debug.Log(portcullisAnim);
 
     }
 

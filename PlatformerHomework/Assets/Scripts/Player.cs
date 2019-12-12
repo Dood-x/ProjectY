@@ -230,7 +230,9 @@ public class Player : MonoBehaviour
 
     public void OutOfBounds()
     {
-        TakeDamage(outOfBoundsDamage);
+        //TakeDamage(outOfBoundsDamage);
+        health -= outOfBoundsDamage;
+        healthSlider.value = health / maxHealth;
         //respawn
         Respawn();
 
@@ -243,7 +245,7 @@ public class Player : MonoBehaviour
         if (health <= 0)
         {
             //death animation
-            //Respawn();
+            Respawn();
         }
     }
 
