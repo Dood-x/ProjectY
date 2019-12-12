@@ -45,6 +45,9 @@ public class TimedDissapearing : MonoBehaviour
                 //lerp material instance on the gameobject
                 rend.material.Lerp(ogMaterial, redMaterial, lerp);
 
+                if (lerp >= 1)
+                    materialChanged = true;
+
                 //gameObject.GetComponent<MeshRenderer>().material = redMaterial;
                 //materialChanged = true;                
             }

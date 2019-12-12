@@ -52,6 +52,8 @@ public class Player : MonoBehaviour
 
     SphereCollider syphonCollider;
 
+    MovingPlatform currentPlatform;
+
     private struct RespawnPoint
     {
         public Vector3 position;
@@ -95,9 +97,7 @@ public class Player : MonoBehaviour
     void Update()
     {
 
-        //check for impulse platforms
-        CheckGround();
-        Debug.Log(impulseLeap);
+        
 
         // movement input
         //float h = Input.GetAxis("Horizontal");
@@ -187,6 +187,14 @@ public class Player : MonoBehaviour
         // move the character!
         cc.Move(moveDirection);
 
+        //check for impulse platforms
+        //CheckGround();
+
+    }
+
+    public void LateUpdate()
+    {
+        CheckGround();
     }
 
 
@@ -278,9 +286,15 @@ public class Player : MonoBehaviour
 
     void CheckGround()
     {
-
+        Debug.Log(transform.parent);
         if (!cc.isGrounded)
+        {
+            //clear the moving platform we were on
+            transform.parent = null;
+            currentPlatform = null; 
+
             return;
+        }
 
         RaycastHit hit;
         Vector3 start = transform.position + cc.center;
@@ -290,7 +304,8 @@ public class Player : MonoBehaviour
         // spherecast toward the ground
         if (Physics.SphereCast(start, cc.radius, direction, out hit, raycastLength, groundRaycastLayer))
         {
-            if (cc.isGrounded && hit.collider.gameObject.tag == "ImpulsePlatform" && !impulseLeap)
+            GameObject other = hit.collider.gameObject;
+            if (cc.isGrounded && other.tag == "ImpulsePlatform" && !impulseLeap)
             {
                 Debug.DrawRay(start,  direction * raycastLength, Color.red);
                 impulseLeap = true;
@@ -308,15 +323,31 @@ public class Player : MonoBehaviour
 
             // activate dissapearing platform script when jumping on a dissapearing platform
             // could be optimized (rn checking every frame)
-            if (cc.isGrounded && hit.collider.gameObject.tag == "DissapearingPlatform")
+            if (cc.isGrounded && other.tag == "DissapearingPlatform")
             {
-                TimedDissapearing timedScript = hit.collider.gameObject.GetComponent<TimedDissapearing>();
+                TimedDissapearing timedScript = other.GetComponent<TimedDissapearing>();
                 if (timedScript != null)
                 {
                     // enable existing script to start the dissapearing timer
                     timedScript.enabled = true;
                 }
             }
+
+
+            if (currentPlatform == null)
+            {
+                currentPlatform = other.GetComponent<MovingPlatform>();
+                // if the gameobject we are standing on has a moving platform script
+                if (currentPlatform)
+                {
+                    // we parent the player to the moving platform to move the player with the moving platform
+                    transform.parent = currentPlatform.transform;
+                }
+
+            }
+           
         }
     }
+
+    
 }
