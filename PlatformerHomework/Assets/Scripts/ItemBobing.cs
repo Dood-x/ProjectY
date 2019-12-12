@@ -39,7 +39,6 @@ public class ItemBobing : MonoBehaviour
         }
 
         transform.Rotate(spinningSpeed * Time.deltaTime, Space.World);
-        Debug.Log(goDown);
     }
 
     void OnTriggerEnter(Collider other)

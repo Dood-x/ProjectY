@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
     public float walkSpeed = 1.5f;
     public float runSpeed = 6f;
     public float rotSpeed = 20f;
-    public float jumpSpeed = 20f;
+    public float jumpSpeed = 5f;
     public float maxHealth = 100f;
     public int maxJumpAmount = 2;
 
@@ -35,6 +35,11 @@ public class Player : MonoBehaviour
     [Header("Physics")]
     public float gravity = 9.81f;
     public float gravityAccelOnGround = -0.3f;
+
+    public float raycastLength;
+    public LayerMask groundRaycastLayer;
+    public float impulsePlatformSpeed = 20f;
+    bool impulseLeap = false;
 
 
     float vSpeed = 0f;
@@ -89,7 +94,10 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
+        //check for impulse platforms
+        CheckGround();
+        Debug.Log(impulseLeap);
 
         // movement input
         //float h = Input.GetAxis("Horizontal");
@@ -153,7 +161,7 @@ public class Player : MonoBehaviour
         //SwitchDirection(v); ubija me, ne treba za sad
 
 
-        if (cc.isGrounded)
+        if (cc.isGrounded && !impulseLeap)
         {
             jumpAmount = 0;
             moveDirection.y = 0f;
@@ -205,6 +213,11 @@ public class Player : MonoBehaviour
         cc.Move(Vector3.up * vSpeed * Time.deltaTime);
         animator.SetBool("Leap", false);
 
+    }
+    public void ImpulseLeapEnd()
+    {
+        animator.SetBool("ImpulseLeap", false);
+        impulseLeap = false;
     }
 
     public void OutOfBounds()
@@ -263,4 +276,31 @@ public class Player : MonoBehaviour
         }
     }
 
+    void CheckGround()
+    {
+        if (!cc.isGrounded)
+            return;
+
+        RaycastHit hit;
+        Vector3 start = transform.position + cc.center;
+        Vector3 direction = Vector3.down;
+
+
+
+        if (Physics.SphereCast(start, cc.radius, direction, out hit, raycastLength, groundRaycastLayer))
+        {
+            if (cc.isGrounded && hit.collider.gameObject.tag == "ImpulsePlatform" && !impulseLeap)
+            {
+                Debug.DrawRay(start,  direction * raycastLength, Color.red);
+                impulseLeap = true;
+                vSpeed = impulsePlatformSpeed;
+                jumpAmount = maxJumpAmount;
+                animator.SetBool("ImpulseLeap", true);
+            }
+            else
+            {
+                Debug.DrawRay(start, direction * raycastLength, Color.green);
+            }
+        }
+    }
 }

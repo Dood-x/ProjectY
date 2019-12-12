@@ -18405,6 +18405,11 @@ MonoBehaviour:
   outOfBoundsDamage: 30
   gravity: 9.81
   gravityAccelOnGround: -4
+  raycastLength: 1.5
+  groundRaycastLayer:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  impulsePlatformSpeed: 20
 --- !u!95 &4334717263717223818
 Animator:
   serializedVersion: 3
