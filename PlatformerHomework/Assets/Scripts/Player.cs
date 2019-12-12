@@ -278,6 +278,7 @@ public class Player : MonoBehaviour
 
     void CheckGround()
     {
+
         if (!cc.isGrounded)
             return;
 
@@ -286,20 +287,35 @@ public class Player : MonoBehaviour
         Vector3 direction = Vector3.down;
 
 
-
+        // spherecast toward the ground
         if (Physics.SphereCast(start, cc.radius, direction, out hit, raycastLength, groundRaycastLayer))
         {
             if (cc.isGrounded && hit.collider.gameObject.tag == "ImpulsePlatform" && !impulseLeap)
             {
                 Debug.DrawRay(start,  direction * raycastLength, Color.red);
                 impulseLeap = true;
+                // shoot the character up by impulse speed
                 vSpeed = impulsePlatformSpeed;
+                // cannot jump while being impulsed
                 jumpAmount = maxJumpAmount;
+                //animate the leap
                 animator.SetBool("ImpulseLeap", true);
             }
             else
             {
                 Debug.DrawRay(start, direction * raycastLength, Color.green);
+            }
+
+            // activate dissapearing platform script when jumping on a dissapearing platform
+            // could be optimized (rn checking every frame)
+            if (cc.isGrounded && hit.collider.gameObject.tag == "DissapearingPlatform")
+            {
+                TimedDissapearing timedScript = hit.collider.gameObject.GetComponent<TimedDissapearing>();
+                if (timedScript != null)
+                {
+                    // enable existing script to start the dissapearing timer
+                    timedScript.enabled = true;
+                }
             }
         }
     }

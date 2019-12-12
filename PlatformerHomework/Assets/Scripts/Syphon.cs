@@ -23,9 +23,10 @@ public class Syphon : MonoBehaviour
         //go after the player
         if (speed < maxSpeed)
         {
+            // accelerate the speed to maxSpeed
             speed += acceleration * Time.fixedDeltaTime;
         }
-
+        // move thowards player
         Vector3 direction = player.position - transform.position;
         direction.Normalize();
         transform.position += direction * speed * Time.deltaTime;

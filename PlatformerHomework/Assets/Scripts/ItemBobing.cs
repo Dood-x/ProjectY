@@ -24,9 +24,6 @@ public class ItemBobing : MonoBehaviour
     void Update()
     {
         int sign = goDown ? -1 : 1;
-        //float velocity = bobbingSpeed * Time.deltaTime;
-        //transform.position += Vector3.up * bobbingSpeed * Time.deltaTime * sign;
-        //transform.position = Vector3.SmoothDamp(transform.position, startPosition + Vector3.up * amplitude * sign, ref smoothSpeed, bobbingSpeed);
         Vector3 newPos = transform.position;
         float t = (Time.time - startTime) / bobbingTime;
         newPos.y = Mathf.SmoothStep((startPosition + Vector3.up * amplitude * sign * -1f).y, (startPosition + Vector3.up * amplitude * sign).y, t);
@@ -45,8 +42,7 @@ public class ItemBobing : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            //Syphon syphonScript = other.gameObject.AddComponent<Syphon>();
-            //syphonScript.player = transform;
+            // add the syphon script to this item if they entered the players trigger 
             Syphon syphonScript = gameObject.AddComponent<Syphon>();
             syphonScript.player = other.transform;
         }
