@@ -286,7 +286,6 @@ public class Player : MonoBehaviour
 
     void CheckGround()
     {
-        Debug.Log(transform.parent);
         if (!cc.isGrounded)
         {
             //clear the moving platform we were on
