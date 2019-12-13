@@ -355,6 +355,11 @@ public class Player : MonoBehaviour
             return;
         }
 
+        if(disableInput && damageInvunerability)
+        {
+            disableInput = false;
+        }
+
         
 
         RaycastHit hit;
@@ -419,6 +424,7 @@ public class Player : MonoBehaviour
         // see if we are launching player forward or backward
         int forward = dir.z > 0 ? 1 : -1;
 
+        disableInput = true;
 
         //launch player
         launchSpeed = hitRelativeImpulseSpeed;
