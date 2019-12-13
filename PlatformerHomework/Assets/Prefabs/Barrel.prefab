@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 524308499949517609}
   - component: {fileID: 524308499949517782}
   - component: {fileID: 524308499949517613}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Barrel
   m_TagString: DamageOBject
   m_Icon: {fileID: 0}

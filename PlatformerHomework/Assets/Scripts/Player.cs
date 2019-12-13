@@ -41,8 +41,16 @@ public class Player : MonoBehaviour
     public float impulsePlatformSpeed = 20f;
     bool impulseLeap = false;
 
+    [Header("GettingHit")]
 
-    float vSpeed = 0f;
+    // the impulse relative to damage origin that propels the character
+    public Vector3 hitRelativeImpulseSpeed;
+    public float hitInvincibilityTime = 2f;
+    public float invincibilityFlashingInterval = 0.25f;
+
+    //add values to this in order to launch the player in a direction
+    Vector3 launchSpeed;
+    //float vSpeed = 0f;
     int jumpAmount = 0;
 
     Vector3 moveDirection;
@@ -53,6 +61,9 @@ public class Player : MonoBehaviour
     SphereCollider syphonCollider;
 
     MovingPlatform currentPlatform;
+
+    // true during gothit coroutine!
+    bool damageInvunerability = false;
 
     private struct RespawnPoint
     {
@@ -111,7 +122,7 @@ public class Player : MonoBehaviour
         //Vector3 moveDirection = Vector3.zero;
 
         //if the player falls to y kill height kill the player
-        if (this.transform.position.y < yKillHeight)
+        if (transform.position.y < yKillHeight)
         {
             OutOfBounds();
             return;
@@ -165,13 +176,14 @@ public class Player : MonoBehaviour
         {
             jumpAmount = 0;
             moveDirection.y = 0f;
-            vSpeed = gravityAccelOnGround;
+            // when grounded clear the launch movement, keep gravity to press the player down onto the ground
+            launchSpeed = new Vector3(0f, gravityAccelOnGround, 0f);
         }
         else
         {
-            vSpeed -= gravity * Time.deltaTime;
+            // y is decelerated by gravity, x,z s constant
+            launchSpeed.y -= gravity * Time.deltaTime;
             // speed of movement * time is the amount we need to move the character
-
         }
 
         //jumping allowes double jump
@@ -180,7 +192,20 @@ public class Player : MonoBehaviour
             animator.SetBool("Leap", true);
         }
 
-        moveDirection.y = vSpeed * Time.deltaTime;
+
+        //if character is launched clear the movement and launch them
+        if (launchSpeed.x != 0)
+        {
+            moveDirection.x = launchSpeed.x * Time.deltaTime;
+        }
+
+        if (launchSpeed.z != 0)
+        {
+            moveDirection.z = launchSpeed.z * Time.deltaTime;
+        }
+
+        //gravity is always affecting our motion
+        moveDirection.y = launchSpeed.y *Time.deltaTime;
 
         cc.Move(Vector3.forward * 0.001f);
 
@@ -216,9 +241,9 @@ public class Player : MonoBehaviour
 
     public void Leap()
     {
-        vSpeed = jumpSpeed;
+        launchSpeed =  new Vector3 (0f, jumpSpeed, 0f);
         jumpAmount++;
-        cc.Move(Vector3.up * vSpeed * Time.deltaTime);
+        cc.Move(launchSpeed * Time.deltaTime);
         animator.SetBool("Leap", false);
 
     }
@@ -230,7 +255,6 @@ public class Player : MonoBehaviour
 
     public void OutOfBounds()
     {
-        //TakeDamage(outOfBoundsDamage);
         health -= outOfBoundsDamage;
         healthSlider.value = health / maxHealth;
         //respawn
@@ -238,8 +262,13 @@ public class Player : MonoBehaviour
 
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(GameObject enemy, float damage)
     {
+        if(damageInvunerability)
+        {
+            return;
+        }
+
         health -= damage;
         healthSlider.value = health/maxHealth;
         if (health <= 0)
@@ -247,6 +276,11 @@ public class Player : MonoBehaviour
             //death animation
             Respawn();
         }
+        else
+        {
+            StartCoroutine("GotHit", enemy.transform.position);
+        }
+
     }
 
     public void Respawn()
@@ -311,7 +345,7 @@ public class Player : MonoBehaviour
                 Debug.DrawRay(start,  direction * raycastLength, Color.red);
                 impulseLeap = true;
                 // shoot the character up by impulse speed
-                vSpeed = impulsePlatformSpeed;
+                launchSpeed = Vector3.up * impulsePlatformSpeed;
                 // cannot jump while being impulsed
                 jumpAmount = maxJumpAmount;
                 //animate the leap
@@ -350,5 +384,64 @@ public class Player : MonoBehaviour
         }
     }
 
-    
+    IEnumerator GotHit(Vector3 impactPosition)
+    {
+        //temporary rigidbody
+
+        //direction from impact toward player
+        Vector3 dir = transform.position - impactPosition;
+        //simplify it to forward or backward
+        int forward = dir.z > 0 ? 1 : -1;
+
+
+        //launch player backwards
+        launchSpeed = hitRelativeImpulseSpeed;
+
+        // play the hit animation
+        animator.SetTrigger("Hit");
+        //start the invincibility
+        damageInvunerability = true;
+
+        cc.Move(launchSpeed * Time.deltaTime);
+
+        Physics.IgnoreLayerCollision(8, 9, true);
+
+
+        float timer = hitInvincibilityTime;
+        MeshRenderer[] mr = GetComponentsInChildren<MeshRenderer>();
+        SkinnedMeshRenderer[] smr = GetComponentsInChildren<SkinnedMeshRenderer>();
+
+        // alternate enabling/disabling the mest renderer
+        while (timer > 0)
+        {
+            for (int i = 0; i < mr.Length; i++)
+            {
+                mr[i].enabled = !mr[i].enabled;
+            }
+
+            for (int i = 0; i < smr.Length; i++)
+            {
+                smr[i].enabled = !smr[i].enabled;
+            }
+
+            yield return new WaitForSeconds(invincibilityFlashingInterval);
+            timer -= invincibilityFlashingInterval;
+        }
+
+        for (int i = 0; i < mr.Length; i++)
+        {
+            mr[i].enabled = true;
+        }
+
+        for (int i = 0; i < smr.Length; i++)
+        {
+            smr[i].enabled = true;
+        }
+
+        Physics.IgnoreLayerCollision(8, 9, false);
+
+        damageInvunerability = false;
+    }
+
+
 }

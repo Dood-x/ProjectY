@@ -8,6 +8,10 @@ public class DamagePlayer : MonoBehaviour
     public float damageAmount = 10f;
     public float minDamagingVelocity = 0f;
 
+    // interval beween consecutive damage
+    //[Tooltip("Interval between consecutive damage")]
+    //public float damageInterval = 1f;
+
     Rigidbody rb;
     // Start is called before the first frame update
     void Start()
@@ -18,10 +22,11 @@ public class DamagePlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-  
+       
     }
 
-    public void OnTriggerEnter(Collider other)
+    // should this be on trigger stay or enter?? what if the player exits invunerability while colliding
+    public void OnTriggerStay(Collider other)
     {
         //Collider other = collision.collider;
         if (other.gameObject.tag == "Player")
@@ -31,7 +36,7 @@ public class DamagePlayer : MonoBehaviour
             {
                 if (playerScript)
                 {
-                    playerScript.TakeDamage(damageAmount);
+                    playerScript.TakeDamage(gameObject, damageAmount);
                 }
             }
         }
