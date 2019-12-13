@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 358950179148299272}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Root_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2817087021796686092}
   - component: {fileID: 5301385993731527798}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: portcullis
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 1798436780908912216}
   - component: {fileID: 4707565677123387749}
   - component: {fileID: 7089503050624658860}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Cube.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -189,7 +189,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3336016443530496310}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Portcullis_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -220,7 +220,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5805091322811340923}
   - component: {fileID: 7089503048673862342}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Portcullis
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -265,7 +265,7 @@ GameObject:
   m_Component:
   - component: {fileID: 859923297420083554}
   - component: {fileID: 8531997993513462166}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -347,7 +347,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1996861682955973250}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Armature
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -379,7 +379,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1068545951427230828}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}

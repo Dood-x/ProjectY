@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
     public Slider healthSlider;
     public Text crystalsTxt;
 
-   // public Syphon syphonScript;
+    // public Syphon syphonScript;
 
 
     private Camera cam;
@@ -27,10 +27,13 @@ public class Player : MonoBehaviour
     public float maxHealth = 100f;
     public int maxJumpAmount = 2;
 
+    bool disableInput;
+
     [Header("Out of bounds")]
 
     public float yKillHeight = -100f;
     public float outOfBoundsDamage = 30f;
+    bool outOfBounds = false;
 
     [Header("Physics")]
     public float gravity = 9.81f;
@@ -48,6 +51,7 @@ public class Player : MonoBehaviour
     public float hitInvincibilityTime = 2f;
     public float invincibilityFlashingInterval = 0.25f;
 
+    bool respawning;
     //add values to this in order to launch the player in a direction
     Vector3 launchSpeed;
     //float vSpeed = 0f;
@@ -97,9 +101,9 @@ public class Player : MonoBehaviour
         moveDirection = Vector3.zero;
         health = maxHealth;
         maxCrystals = GameObject.FindGameObjectsWithTag("Crystal").Length;
-        RespawnPoint startPoint = new RespawnPoint(this.transform.position, this.transform.localRotation);
+        RespawnPoint startPoint = new RespawnPoint(transform.position, transform.localRotation);
         checkpoints.Add(startPoint);
-        healthSlider.value = health/maxHealth;
+        healthSlider.value = health / maxHealth;
         WriteCrystals();
         syphonCollider = GetComponentInChildren<SphereCollider>();
     }
@@ -108,12 +112,22 @@ public class Player : MonoBehaviour
     void Update()
     {
 
+        if (respawning)
+        {
+            return;
+        }
         
 
         // movement input
         //float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Horizontal");
         float h = 0;
+
+        if(disableInput)
+        {
+            v = 0;
+            h = 0;
+        }
 
         float animSpeed = Mathf.Max(Mathf.Abs(h), Mathf.Abs(v));
 
@@ -187,7 +201,7 @@ public class Player : MonoBehaviour
         }
 
         //jumping allowes double jump
-        if (Input.GetButtonDown("Jump") && jumpAmount < maxJumpAmount)
+        if (!disableInput && Input.GetButtonDown("Jump") && jumpAmount < maxJumpAmount)
         {
             animator.SetBool("Leap", true);
         }
@@ -205,15 +219,19 @@ public class Player : MonoBehaviour
         }
 
         //gravity is always affecting our motion
-        moveDirection.y = launchSpeed.y *Time.deltaTime;
+        moveDirection.y = launchSpeed.y * Time.deltaTime;
 
-        cc.Move(Vector3.forward * 0.001f);
+
+
+        //cc.Move(Vector3.forward * 0.001f);
 
         // move the character!
         cc.Move(moveDirection);
 
         //check for impulse platforms
         //CheckGround();
+
+
 
     }
 
@@ -241,7 +259,7 @@ public class Player : MonoBehaviour
 
     public void Leap()
     {
-        launchSpeed =  new Vector3 (0f, jumpSpeed, 0f);
+        launchSpeed = new Vector3(0f, jumpSpeed, 0f);
         jumpAmount++;
         cc.Move(launchSpeed * Time.deltaTime);
         animator.SetBool("Leap", false);
@@ -264,13 +282,13 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(GameObject enemy, float damage)
     {
-        if(damageInvunerability && health > 0)
+        if ((damageInvunerability && health > 0) || respawning)
         {
             return;
         }
 
         health -= damage;
-        healthSlider.value = health/maxHealth;
+        healthSlider.value = health / maxHealth;
 
         if (health <= 0)
         {
@@ -287,20 +305,23 @@ public class Player : MonoBehaviour
     public void Respawn()
     {
         ClearState();
+        //Physics.IgnoreLayerCollision(8, 9, true);
         if (health > 0)
         {
-            this.transform.position = checkpoints[checkpoints.Count - 1].position;
-            this.transform.localRotation = checkpoints[checkpoints.Count - 1].lookDirection;
+            transform.position = checkpoints[checkpoints.Count - 1].position;
+            transform.localRotation = checkpoints[checkpoints.Count - 1].lookDirection;
         }
         else
         {
-            this.transform.position = checkpoints[0].position;
-            this.transform.localRotation = checkpoints[0].lookDirection;
+            transform.position = checkpoints[0].position;
+            transform.localRotation = checkpoints[0].lookDirection;
             // respawn with full health
             health = maxHealth;
             healthSlider.value = health;
 
         }
+
+        StartCoroutine("Respawning");
     }
 
     void WriteCrystals()
@@ -329,10 +350,12 @@ public class Player : MonoBehaviour
         {
             //clear the moving platform we were on
             transform.parent = null;
-            currentPlatform = null; 
+            currentPlatform = null;
 
             return;
         }
+
+        
 
         RaycastHit hit;
         Vector3 start = transform.position + cc.center;
@@ -345,7 +368,7 @@ public class Player : MonoBehaviour
             GameObject other = hit.collider.gameObject;
             if (cc.isGrounded && other.tag == "ImpulsePlatform" && !impulseLeap)
             {
-                Debug.DrawRay(start,  direction * raycastLength, Color.red);
+                Debug.DrawRay(start, direction * raycastLength, Color.red);
                 impulseLeap = true;
                 // shoot the character up by impulse speed
                 launchSpeed = Vector3.up * impulsePlatformSpeed;
@@ -383,7 +406,7 @@ public class Player : MonoBehaviour
                 }
 
             }
-           
+
         }
     }
 
@@ -393,13 +416,10 @@ public class Player : MonoBehaviour
 
         //direction from impact toward player
         Vector3 dir = transform.position - impactPosition;
-        //simplify it to forward or backward
+        // see if we are launching player forward or backward
         int forward = dir.z > 0 ? 1 : -1;
 
-        Debug.Log(forward);
 
-        // see if we are launching player forward or backward
-        
         //launch player
         launchSpeed = hitRelativeImpulseSpeed;
 
@@ -423,29 +443,13 @@ public class Player : MonoBehaviour
         // alternate enabling/disabling the mest renderer
         while (timer > 0)
         {
-            for (int i = 0; i < mr.Length; i++)
-            {
-                mr[i].enabled = !mr[i].enabled;
-            }
-
-            for (int i = 0; i < smr.Length; i++)
-            {
-                smr[i].enabled = !smr[i].enabled;
-            }
+            TogglePlayerVisibility();
 
             yield return new WaitForSeconds(invincibilityFlashingInterval);
             timer -= invincibilityFlashingInterval;
         }
 
-        for (int i = 0; i < mr.Length; i++)
-        {
-            mr[i].enabled = true;
-        }
-
-        for (int i = 0; i < smr.Length; i++)
-        {
-            smr[i].enabled = true;
-        }
+        ShowPlayer();
 
         Physics.IgnoreLayerCollision(8, 9, false);
 
@@ -457,6 +461,11 @@ public class Player : MonoBehaviour
     {
         StopCoroutine("GotHit");
 
+        transform.parent = null;
+        currentPlatform = null;
+
+
+        Physics.IgnoreLayerCollision(8, 9, false);
 
         MeshRenderer[] mr = GetComponentsInChildren<MeshRenderer>();
         SkinnedMeshRenderer[] smr = GetComponentsInChildren<SkinnedMeshRenderer>();
@@ -471,11 +480,70 @@ public class Player : MonoBehaviour
             smr[i].enabled = true;
         }
 
-        Physics.IgnoreLayerCollision(8, 9, false);
-
         damageInvunerability = false;
 
-        launchSpeed = Vector3.up * gravityAccelOnGround;
+        launchSpeed = Vector3.zero;
+    }
+
+    IEnumerator Respawning()
+    {
+        HidePlayer();
+        disableInput = true;
+        respawning = true;
+        yield return new WaitForSeconds(0.5f);
+        respawning = false;
+        disableInput = false;
+        ShowPlayer();
+    }
+
+
+    void TogglePlayerVisibility()
+    {
+        MeshRenderer[] mr = GetComponentsInChildren<MeshRenderer>();
+        SkinnedMeshRenderer[] smr = GetComponentsInChildren<SkinnedMeshRenderer>();
+
+        for (int i = 0; i < mr.Length; i++)
+        {
+            mr[i].enabled = !mr[i].enabled;
+        }
+
+        for (int i = 0; i < smr.Length; i++)
+        {
+            smr[i].enabled = !smr[i].enabled;
+        }
+    }
+
+    void HidePlayer()
+    {
+        MeshRenderer[] mr = GetComponentsInChildren<MeshRenderer>();
+        SkinnedMeshRenderer[] smr = GetComponentsInChildren<SkinnedMeshRenderer>();
+
+        for (int i = 0; i < mr.Length; i++)
+        {
+            mr[i].enabled = false;
+        }
+
+        for (int i = 0; i < smr.Length; i++)
+        {
+            smr[i].enabled = false;
+        }
+    }
+
+    void ShowPlayer()
+    {
+
+        MeshRenderer[] mr = GetComponentsInChildren<MeshRenderer>();
+        SkinnedMeshRenderer[] smr = GetComponentsInChildren<SkinnedMeshRenderer>();
+
+        for (int i = 0; i < mr.Length; i++)
+        {
+            mr[i].enabled = true;
+        }
+
+        for (int i = 0; i < smr.Length; i++)
+        {
+            smr[i].enabled = true;
+        }
     }
 
 }
