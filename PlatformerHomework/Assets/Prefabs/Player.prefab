@@ -18411,7 +18411,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   impulsePlatformSpeed: 20
-  hitRelativeImpulseSpeed: {x: 0, y: 3, z: -3}
+  hitRelativeImpulseSpeed: {x: 0, y: 3, z: 3}
   hitInvincibilityTime: 2
   invincibilityFlashingInterval: 0.25
 --- !u!95 &4334717263717223818

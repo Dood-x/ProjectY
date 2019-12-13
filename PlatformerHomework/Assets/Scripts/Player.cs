@@ -264,13 +264,14 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(GameObject enemy, float damage)
     {
-        if(damageInvunerability)
+        if(damageInvunerability && health > 0)
         {
             return;
         }
 
         health -= damage;
         healthSlider.value = health/maxHealth;
+
         if (health <= 0)
         {
             //death animation
@@ -285,6 +286,7 @@ public class Player : MonoBehaviour
 
     public void Respawn()
     {
+        ClearState();
         if (health > 0)
         {
             this.transform.position = checkpoints[checkpoints.Count - 1].position;
@@ -297,6 +299,7 @@ public class Player : MonoBehaviour
             // respawn with full health
             health = maxHealth;
             healthSlider.value = health;
+
         }
     }
 
@@ -393,9 +396,15 @@ public class Player : MonoBehaviour
         //simplify it to forward or backward
         int forward = dir.z > 0 ? 1 : -1;
 
+        Debug.Log(forward);
 
-        //launch player backwards
+        // see if we are launching player forward or backward
+        
+        //launch player
         launchSpeed = hitRelativeImpulseSpeed;
+
+        //orient launch away from impact
+        launchSpeed.z = hitRelativeImpulseSpeed.z * forward;
 
         // play the hit animation
         animator.SetTrigger("Hit");
@@ -443,5 +452,30 @@ public class Player : MonoBehaviour
         damageInvunerability = false;
     }
 
+
+    void ClearState()
+    {
+        StopCoroutine("GotHit");
+
+
+        MeshRenderer[] mr = GetComponentsInChildren<MeshRenderer>();
+        SkinnedMeshRenderer[] smr = GetComponentsInChildren<SkinnedMeshRenderer>();
+
+        for (int i = 0; i < mr.Length; i++)
+        {
+            mr[i].enabled = true;
+        }
+
+        for (int i = 0; i < smr.Length; i++)
+        {
+            smr[i].enabled = true;
+        }
+
+        Physics.IgnoreLayerCollision(8, 9, false);
+
+        damageInvunerability = false;
+
+        launchSpeed = Vector3.up * gravityAccelOnGround;
+    }
 
 }
