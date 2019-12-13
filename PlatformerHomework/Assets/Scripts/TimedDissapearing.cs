@@ -77,9 +77,6 @@ public class TimedDissapearing : MonoBehaviour
                     // if we dont have a fading material just destroy the object instantly
                     Destroy(gameObject);
                 }
-
-
-
             }
         }
     }

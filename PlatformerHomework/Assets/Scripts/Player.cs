@@ -406,8 +406,8 @@ public class Player : MonoBehaviour
                 // if the gameobject we are standing on has a moving platform script
                 if (currentPlatform)
                 {
-                    // we parent the player to the moving platform to move the player with the moving platform
-                    transform.parent = currentPlatform.transform;
+                    // we parent the player to the moving platform to move the player with the moving platform / ovo ti ne radi
+                    //transform.parent = currentPlatform.transform;
                 }
 
             }

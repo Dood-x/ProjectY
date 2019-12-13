@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6065367505450440766}
   - component: {fileID: 2988003264703570440}
   - component: {fileID: 8812150599536008945}
+  - component: {fileID: 5773918327899227636}
   m_Layer: 0
   m_Name: WallBroken
   m_TagString: Untagged
@@ -78,3 +79,16 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &5773918327899227636
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7095379726306699821}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.08, y: 0.01, z: 0.0275}
+  m_Center: {x: 0, y: 0.0000000013969839, z: 0.01375}
