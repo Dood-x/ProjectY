@@ -8,13 +8,16 @@ public class Player : MonoBehaviour
 {
 
     private CharacterController cc;
+    public CharacterController Cc
+    {
+        get { return cc; }
+        private set { cc = Cc; }
+    }
     public PlatformerCamera camScript;
     private Animator animator;
 
     public Slider healthSlider;
     public Text crystalsTxt;
-
-    // public Syphon syphonScript;
 
 
     private Camera cam;
@@ -28,6 +31,11 @@ public class Player : MonoBehaviour
     public int maxJumpAmount = 2;
 
     bool disableInput;
+    public bool DisableInput
+    {
+        get { return disableInput; }
+        set { disableInput = value; }
+    }
 
     [Header("Out of bounds")]
 
@@ -56,7 +64,7 @@ public class Player : MonoBehaviour
     //float vSpeed = 0f;
     int jumpAmount = 0;
 
-    Vector3 moveDirection;
+    //Vector3 moveDirection;
     float health;
     int crystals;
     int maxCrystals;
@@ -64,10 +72,18 @@ public class Player : MonoBehaviour
     SphereCollider syphonCollider;
 
     MovingPlatform currentPlatform;
+    bool movingLanes;
 
     // true during gothit coroutine!
     bool damageInvunerability = false;
+   
 
+    Vector3 moveDestination;
+
+    float forceMoveVel;
+    float forceMoveSpeed;
+
+    float camDistarnceStart;
     private struct RespawnPoint
     {
         public Vector3 position;
@@ -97,7 +113,7 @@ public class Player : MonoBehaviour
             cam = Camera.main;
         }
 
-        moveDirection = Vector3.zero;
+        //moveDirection = Vector3.zero;
         health = maxHealth;
         maxCrystals = GameObject.FindGameObjectsWithTag("Crystal").Length;
         RespawnPoint startPoint = new RespawnPoint(transform.position, transform.localRotation);
@@ -105,12 +121,19 @@ public class Player : MonoBehaviour
         healthSlider.value = health / maxHealth;
         WriteCrystals();
         syphonCollider = GetComponentInChildren<SphereCollider>();
+
+        camDistarnceStart = camScript.Distance;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (respawning)
+        if(movingLanes)
+        {
+            MoveLanes();
+            return;
+        }
+        if (respawning || movingLanes)
         {
             return;
         }
@@ -131,9 +154,12 @@ public class Player : MonoBehaviour
 
         float animSpeed = Mathf.Max(Mathf.Abs(h), Mathf.Abs(v));
 
+       
+
+
         animator.SetFloat("Speed", animSpeed);
         animator.SetBool("Grounded", cc.isGrounded);
-        //Vector3 moveDirection = Vector3.zero;
+        Vector3 moveDirection = Vector3.zero;
 
         //if the player falls to y kill height kill the player
         if (transform.position.y < yKillHeight)
@@ -234,6 +260,7 @@ public class Player : MonoBehaviour
 
 
         // move the character!
+
         cc.Move(moveDirection);
 
         CheckGround();
@@ -252,6 +279,45 @@ public class Player : MonoBehaviour
 
     }
 
+    void MoveLanes()
+    {
+        //if we are forced to move to a diffrent lane
+        if (moveDestination != Vector3.zero)
+        {
+            Vector3 distance = moveDestination - transform.position;
+            distance.z = 0;
+            distance.y = 0;
+            if (distance.magnitude < 0.3f)
+            {
+                moveDestination = Vector3.zero;
+                movingLanes = false;
+                damageInvunerability = false;
+                disableInput = false;
+                forceMoveVel = 0f;
+                forceMoveSpeed = runSpeed;
+            }
+            else
+            {
+                //speed will be smoothed
+                forceMoveSpeed = Mathf.Lerp(forceMoveSpeed, walkSpeed, Time.deltaTime*2f);
+                Vector3 moveDirection = distance.normalized * Time.deltaTime * forceMoveSpeed;
+                animator.SetFloat("Speed", forceMoveSpeed / runSpeed);
+                Quaternion rotation = Quaternion.LookRotation(distance.normalized);
+                transform.rotation = Quaternion.Slerp(this.transform.rotation, rotation, rotSpeed * Time.deltaTime);
+                moveDirection.y = gravityAccelOnGround;
+
+                cc.Move(moveDirection);
+
+                Vector3 look = camScript.Lookoffset;
+                look.x -= moveDirection.x;
+                camScript.Lookoffset = look;
+            }
+
+
+        }
+
+
+    }
 
     void SwitchDirection(float v)
     {
@@ -368,7 +434,7 @@ public class Player : MonoBehaviour
             return;
         }
 
-        if(disableInput && damageInvunerability)
+        if((disableInput && damageInvunerability) && !movingLanes)
         {
             disableInput = false;
         }
@@ -531,6 +597,8 @@ public class Player : MonoBehaviour
     {
         StopCoroutine("GotHit");
 
+        camScript.Distance = camDistarnceStart;
+
         transform.parent = null;
         cam.gameObject.transform.parent = null;
         currentPlatform = null;
@@ -615,6 +683,16 @@ public class Player : MonoBehaviour
         {
             smr[i].enabled = true;
         }
+    }
+
+    public void MoveToLane(Vector3 destination)
+    {
+        moveDestination = destination;
+        disableInput = true;
+        damageInvunerability = true;
+        movingLanes = true;
+        forceMoveSpeed = runSpeed;
+
     }
 
 }

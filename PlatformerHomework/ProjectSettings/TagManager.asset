@@ -9,6 +9,7 @@ TagManager:
   - ImpulsePlatform
   - DissapearingPlatform
   - DamageOBject
+  - LaneChangeLocation
   layers:
   - Default
   - TransparentFX
