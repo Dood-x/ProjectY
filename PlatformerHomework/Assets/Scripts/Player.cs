@@ -252,11 +252,11 @@ public class Player : MonoBehaviour
 
         //cc.Move(Vector3.forward * 0.001f);
 
-        //if (currentPlatform)
-        //{
-        //    moveDirection.y += currentPlatform.GetMovementDelta().y;
-        //    //currentPlatform.ClearnMovementDelta();
-        //}
+        if (currentPlatform)
+        {
+            //moveDirection += currentPlatform.GetMovementDelta();
+            //currentPlatform.ClearnMovementDelta();
+        }
 
 
         // move the character!
