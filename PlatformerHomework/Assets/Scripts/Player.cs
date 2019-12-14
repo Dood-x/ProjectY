@@ -33,7 +33,6 @@ public class Player : MonoBehaviour
 
     public float yKillHeight = -100f;
     public float outOfBoundsDamage = 30f;
-    bool outOfBounds = false;
 
     [Header("Physics")]
     public float gravity = 9.81f;
@@ -111,12 +110,10 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         if (respawning)
         {
             return;
         }
-        
 
         // movement input
         //float h = Input.GetAxis("Horizontal");
@@ -221,23 +218,34 @@ public class Player : MonoBehaviour
         //gravity is always affecting our motion
         moveDirection.y = launchSpeed.y * Time.deltaTime;
 
-
-
         //cc.Move(Vector3.forward * 0.001f);
+
+        //if (currentPlatform)
+        //{
+            //moveDirection += currentPlatform.GetMovementDelta();
+            //currentPlatform.ClearnMovementDelta();
+        //}
+
 
         // move the character!
         cc.Move(moveDirection);
 
+        Debug.Log(moveDirection);
+
         //check for impulse platforms
         //CheckGround();
-
 
 
     }
 
     public void LateUpdate()
     {
+        //if (currentPlatform)
+        //    cc.Move(currentPlatform.GetMovementDelta());
+
         CheckGround();
+
+        
     }
 
 
@@ -350,6 +358,8 @@ public class Player : MonoBehaviour
         {
             //clear the moving platform we were on
             transform.parent = null;
+            //if(currentPlatform)
+            //    currentPlatform.RemovePlayerOnPlatform();
             currentPlatform = null;
 
             return;
@@ -408,6 +418,7 @@ public class Player : MonoBehaviour
                 {
                     // we parent the player to the moving platform to move the player with the moving platform
                     transform.parent = currentPlatform.transform;
+                    //currentPlatform.SetPlayerOnPlatform(cc);
                 }
 
             }

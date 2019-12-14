@@ -17,22 +17,39 @@ public class MovingPlatform : MonoBehaviour
     float startTimeUpDown;
     Vector3 startPosition;
 
+    Vector3 movementDelta;
+
+    Rigidbody rb;
+
     //CharacterController playercc;
 
 
-    //Vector3 previousPos;
+    Vector3 previousPos;
     
     // Start is called before the first frame update
     void Start()
     {
         startTimeFrontBack = Time.time;
         startTimeUpDown = Time.time; 
-         startPosition = transform.position;
+        startPosition = transform.position;
+        previousPos = startPosition;
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        if (rb)
+        {
+            movementDelta = transform.position - previousPos;
+            previousPos = transform.position;
+            return;
+        }
+
+
+        movementDelta = Vector3.zero;
+        previousPos = transform.position;
         //previousPos = transform.position;
         //move updown
         if (upDownAmplitude > 0 && upDownTime > 0)
@@ -42,10 +59,13 @@ public class MovingPlatform : MonoBehaviour
             //TODO instead of time difference, measure time passed from 0
             float t = (Time.time - startTimeUpDown) / upDownTime;
             newPos.y = Mathf.SmoothStep((startPosition + Vector3.up * upDownAmplitude * sign * -1f).y, (startPosition + Vector3.up * upDownAmplitude * sign).y, t);
-            transform.position = newPos;
+            transform.Translate(newPos - transform.position);
+            //transform.position = newPos;
             if (sign * (transform.position.y - startPosition.y) >= upDownAmplitude - 0.001f)
             {
-                transform.position = startPosition + Vector3.up * upDownAmplitude * sign;
+                Vector3 endPos = startPosition + Vector3.up * upDownAmplitude * sign;
+                transform.Translate(endPos - transform.position);
+                //transform.position = startPosition + Vector3.up * upDownAmplitude * sign;
                 goDown = !goDown;
                 startTimeUpDown = Time.time;
             }
@@ -57,23 +77,74 @@ public class MovingPlatform : MonoBehaviour
             Vector3 newPos = transform.position;
             float t = (Time.time - startTimeFrontBack) / frontBackTime;
             newPos.z = Mathf.SmoothStep((startPosition + Vector3.forward * frontBackAmplitude * sign * -1f).z, (startPosition + Vector3.forward * frontBackAmplitude * sign).z, t);
-            transform.position = newPos;
-            if (sign * (transform.position.z - startPosition.z) >= frontBackAmplitude - 0.001f)
+            transform.Translate(newPos - transform.position);
+            //transform.position = newPos;
+            if (sign * (newPos.z - startPosition.z) >= frontBackAmplitude - 0.001f)
             {
-                transform.position = startPosition + Vector3.forward * frontBackAmplitude * sign;
+                Vector3 endPos = startPosition + Vector3.forward * frontBackAmplitude * sign;
+                transform.Translate(endPos - transform.position);
+
+                //transform.position = startPosition + Vector3.forward * frontBackAmplitude * sign;
                 goBack = !goBack;
                 startTimeFrontBack = Time.time;
             }
         }
 
-
-        //Vector3 offset = transform.position - previousPos;
+        movementDelta = transform.position - previousPos;
         //if (playercc)
         //{
-        //    playercc.Move(offset);
+        //    playercc.Move(movementDelta);
         //}
 
     }
+
+    //void FixedUpdate()
+    //{
+    //    RBUpdate();
+    //}
+
+    //void RBUpdate()
+    //{
+    //    if (!rb)
+    //        return;
+
+    //    //previousPos = transform.position;
+
+    //    if (upDownAmplitude > 0 && upDownTime > 0)
+    //    {
+    //        int sign = goDown ? -1 : 1;
+    //        Vector3 newPos = transform.position;
+    //        //TODO instead of time difference, measure time passed from 0
+    //        float t = (Time.time - startTimeUpDown) / upDownTime;
+    //        newPos.y = Mathf.SmoothStep((startPosition + Vector3.up * upDownAmplitude * sign * -1f).y, (startPosition + Vector3.up * upDownAmplitude * sign).y, t);
+    //        rb.MovePosition(newPos);
+    //        if (sign * (transform.position.y - startPosition.y) >= upDownAmplitude - 0.001f)
+    //        {
+    //            rb.MovePosition(startPosition + Vector3.up * upDownAmplitude * sign);
+    //            goDown = !goDown;
+    //            startTimeUpDown = Time.time;
+    //        }
+    //    }
+
+    //    if (frontBackAmplitude > 0 && frontBackTime > 0)
+    //    {
+    //        int sign = goBack ? -1 : 1;
+    //        Vector3 newPos = transform.position;
+    //        float t = (Time.time - startTimeFrontBack) / frontBackTime;
+    //        newPos.z = Mathf.SmoothStep((startPosition + Vector3.forward * frontBackAmplitude * sign * -1f).z, (startPosition + Vector3.forward * frontBackAmplitude * sign).z, t);
+    //        //transform.position = newPos;
+    //        rb.MovePosition(newPos);
+    //        if (sign * (newPos.z - startPosition.z) >= frontBackAmplitude - 0.001f)
+    //        {
+    //            Vector3 endPos = startPosition + Vector3.forward * frontBackAmplitude * sign;
+    //            rb.MovePosition(startPosition + Vector3.forward * frontBackAmplitude * sign);
+    //            goBack = !goBack;
+    //            startTimeFrontBack = Time.time;
+    //        }
+    //    }
+
+    //    //movementDelta = rb.velocity * Time.fixedDeltaTime;
+    //}
 
     //public void SetPlayerOnPlatform(CharacterController cc)
     //{
@@ -100,4 +171,13 @@ public class MovingPlatform : MonoBehaviour
     //        other.transform.parent = null;
     //    }
     //}
+
+    public Vector3 GetMovementDelta()
+    {
+        return movementDelta;
+    }
+    public void ClearnMovementDelta()
+    {
+        movementDelta = Vector3.zero;
+    }
 }
