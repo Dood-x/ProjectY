@@ -115,6 +115,9 @@ public class Player : MonoBehaviour
             return;
         }
 
+        //CheckMovingPlatform();
+
+
         // movement input
         //float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Horizontal");
@@ -169,7 +172,7 @@ public class Player : MonoBehaviour
             //turn the movement direction into a rotation
             Quaternion rotation = Quaternion.LookRotation(moveHorizontal.normalized);
             // rotate the characetr in the direction of movement
-            this.transform.rotation = Quaternion.Slerp(this.transform.rotation, rotation, rotSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(this.transform.rotation, rotation, rotSpeed * Time.deltaTime);
 
             moveDirection.x = moveHorizontal.x;
             moveDirection.z = moveHorizontal.z;
@@ -197,6 +200,9 @@ public class Player : MonoBehaviour
             // speed of movement * time is the amount we need to move the character
         }
 
+        //if (currentPlatform)
+        //    launchSpeed.y = 0;
+
         //jumping allowes double jump
         if (!disableInput && Input.GetButtonDown("Jump") && jumpAmount < maxJumpAmount)
         {
@@ -222,18 +228,15 @@ public class Player : MonoBehaviour
 
         //if (currentPlatform)
         //{
-            //moveDirection += currentPlatform.GetMovementDelta();
-            //currentPlatform.ClearnMovementDelta();
+        //    moveDirection.y += currentPlatform.GetMovementDelta().y;
+        //    //currentPlatform.ClearnMovementDelta();
         //}
 
 
         // move the character!
         cc.Move(moveDirection);
 
-        Debug.Log(moveDirection);
-
-        //check for impulse platforms
-        //CheckGround();
+        CheckGround();
 
 
     }
@@ -243,9 +246,10 @@ public class Player : MonoBehaviour
         //if (currentPlatform)
         //    cc.Move(currentPlatform.GetMovementDelta());
 
-        CheckGround();
+        //CheckGround();
 
-        
+
+
     }
 
 
@@ -358,8 +362,7 @@ public class Player : MonoBehaviour
         {
             //clear the moving platform we were on
             transform.parent = null;
-            //if(currentPlatform)
-            //    currentPlatform.RemovePlayerOnPlatform();
+            cam.gameObject.transform.parent = null;
             currentPlatform = null;
 
             return;
@@ -383,7 +386,7 @@ public class Player : MonoBehaviour
             GameObject other = hit.collider.gameObject;
             if (cc.isGrounded && other.tag == "ImpulsePlatform" && !impulseLeap)
             {
-                Debug.DrawRay(start, direction * raycastLength, Color.red);
+                //Debug.DrawRay(start, direction * raycastLength, Color.red);
                 impulseLeap = true;
                 // shoot the character up by impulse speed
                 launchSpeed = Vector3.up * impulsePlatformSpeed;
@@ -394,7 +397,7 @@ public class Player : MonoBehaviour
             }
             else
             {
-                Debug.DrawRay(start, direction * raycastLength, Color.green);
+                //Debug.DrawRay(start, direction * raycastLength, Color.green);
             }
 
             // activate dissapearing platform script when jumping on a dissapearing platform
@@ -409,7 +412,6 @@ public class Player : MonoBehaviour
                 }
             }
 
-
             if (currentPlatform == null)
             {
                 currentPlatform = other.GetComponent<MovingPlatform>();
@@ -418,12 +420,63 @@ public class Player : MonoBehaviour
                 {
                     // we parent the player to the moving platform to move the player with the moving platform
                     transform.parent = currentPlatform.transform;
-                    //currentPlatform.SetPlayerOnPlatform(cc);
+                    cam.gameObject.transform.parent = currentPlatform.transform;
                 }
-
             }
 
+
+
         }
+    }
+
+    void CheckMovingPlatform()
+    {
+        RaycastHit hit;
+        Vector3 start = transform.position + Vector3.up * cc.height;
+        Vector3 direction = Vector3.down;
+
+        bool foundMovingPlatform = false;
+
+        float length = cc.height + 0.1f;
+
+
+        // spherecast toward the ground every frame to find the moving platform
+        if (Physics.SphereCast(start, cc.radius, direction, out hit, length, groundRaycastLayer))
+        {
+            Debug.DrawRay(start, direction * length, Color.red);
+
+            GameObject other = hit.collider.gameObject;
+            if (currentPlatform == null)
+            {
+                currentPlatform = other.GetComponent<MovingPlatform>();
+                // if the gameobject we are standing on has a moving platform script
+                if (currentPlatform)
+                {
+                    // we parent the player to the moving platform to move the player with the moving platform
+                    transform.parent = currentPlatform.transform;
+                    cam.gameObject.transform.parent = currentPlatform.transform;
+
+                    //currentPlatform.SetPlayerOnPlatform(cc);
+                    foundMovingPlatform = true;
+                }
+                
+
+            }
+        }
+        else
+        {
+            Debug.DrawRay(start, direction * length, Color.green);
+
+        }
+
+        if (!foundMovingPlatform)
+        {
+            transform.parent = null;
+            cam.gameObject.transform.parent = null;
+            currentPlatform = null;
+        }
+
+
     }
 
     IEnumerator GotHit(Vector3 impactPosition)
@@ -479,6 +532,7 @@ public class Player : MonoBehaviour
         StopCoroutine("GotHit");
 
         transform.parent = null;
+        cam.gameObject.transform.parent = null;
         currentPlatform = null;
 
 

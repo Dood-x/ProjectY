@@ -20,7 +20,7 @@ TagManager:
   - 
   - PassThroughInvincibility
   - Player
-  - 
+  - NoCamCollision
   - 
   - 
   - 

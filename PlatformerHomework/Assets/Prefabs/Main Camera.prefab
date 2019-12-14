@@ -114,9 +114,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 104ec3d0f0241614489f7a3c7ba9958e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  limitXRotation: 1
-  xMinLimit: -60
-  xMaxLimit: 0
+  limitXRotation: 0
+  xMinLimit: -120
+  xMaxLimit: -30
   follow: {fileID: 0}
   inverseXAxis: 1
   inverseYAxis: 0
@@ -124,9 +124,9 @@ MonoBehaviour:
   mouseInputY: Mouse Y
   rightStickX: RightStickX
   rightStickY: RightStickY
-  enableLockOn: 1
-  enableCamReset: 1
-  enableChangeTarget: 1
+  enableLockOn: 0
+  enableCamReset: 0
+  enableChangeTarget: 0
   useInputManagerInsteadOfKeyCode: 0
   cameraResetKeyCodes: 7400000067010000
   lockOnKeyCodes: 3001000063010000
@@ -141,8 +141,8 @@ MonoBehaviour:
   distance: 5.11
   xSpeed: 1
   ySpeed: 1
-  lockCameraYDuringCollision: 1
-  lerpCameraToDefault: 1
+  lockCameraYDuringCollision: 0
+  lerpCameraToDefault: 0
   yLerpSpeed: 20
   yMinLimit: -10
   yMaxLimit: 50
@@ -155,7 +155,7 @@ MonoBehaviour:
   collisionMargin: 0.05
   camObstacle:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1
   lockOnTargetsTag: LockOnTarget
   lockOnToggle: 1
   lockOnDistanceLimit: 0
@@ -174,15 +174,15 @@ MonoBehaviour:
   cameraFadeObjects: 1
   cameraFadeLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2
   fadeObjectsSpherecastRadius: 0.6
-  alwaysFullyTransparent: 0
+  alwaysFullyTransparent: 1
   fullTransparencyDistance: 2
   fadeInSpeed: 10
   fadeOutSpeed: 10
   fadePlayerWhenClose: 1
   playerFadeDistance: 1
-  fadeShader: {fileID: 0}
+  fadeShader: {fileID: 4800000, guid: 05974290369b335478edf5737ad9fd8c, type: 3}
   debugOn: 1
   debugThirdPersonMode: 0
   debugCamFade: 0

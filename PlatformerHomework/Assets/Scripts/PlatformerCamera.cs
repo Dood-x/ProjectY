@@ -1399,12 +1399,13 @@ namespace PlatformerHomework{
 					x = (inverseXAxis) ? x +xDelta : x-xDelta;
 
 				}
+
 				y = ClampAngle(y, yMinLimit, yMaxLimit);
 
-                    if (limitXRotation)
-                    {
-                        x = ClampAngle(x, xMinLimit, xMaxLimit);
-                    }
+                if (limitXRotation)
+                {
+                    x = ClampAngle(x, xMinLimit, xMaxLimit);
+                }
 
 
 				//make sure the camera can keep up with the movement speed
