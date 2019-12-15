@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3672914162773012520}
   - component: {fileID: 3672914162773012527}
   - component: {fileID: 3672914162773012560}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: DissapearingPlatform
   m_TagString: DissapearingPlatform
   m_Icon: {fileID: 0}

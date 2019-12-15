@@ -46,6 +46,9 @@ public class Lever : MonoBehaviour
                 leverAnim.SetTrigger("Activated");
                 //play portcullis opening in a coroutine
                 StartCoroutine("PortcullisOpen");
+                //remove tutorial is there is one
+                if (message)
+                    message.SetActive(false);
 
             }
         }
@@ -55,7 +58,7 @@ public class Lever : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            if (message)
+            if (message && !activated)
             {
                 message.SetActive(true);
             }

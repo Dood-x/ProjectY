@@ -9,6 +9,7 @@ TagManager:
   - ImpulsePlatform
   - DissapearingPlatform
   - DamageOBject
+  - LaneChangeLocation
   layers:
   - Default
   - TransparentFX
@@ -18,9 +19,9 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
+  - PassThroughInvincibility
+  - Player
+  - NoCamCollision
   - 
   - 
   - 
