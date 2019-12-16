@@ -80,10 +80,9 @@ public class Player : MonoBehaviour
 
     Vector3 moveDestination;
 
-    float forceMoveVel;
     float forceMoveSpeed;
 
-    float camDistarnceStart;
+    Vector3 camLookOffsetStart;
     private struct RespawnPoint
     {
         public Vector3 position;
@@ -122,9 +121,13 @@ public class Player : MonoBehaviour
         WriteCrystals();
         syphonCollider = GetComponentInChildren<SphereCollider>();
 
+<<<<<<< HEAD
         camDistarnceStart = camScript.Distance;
 
 
+=======
+        camLookOffsetStart = camScript.Lookoffset;
+>>>>>>> 24b26d2ecae4eb090cb9e9201a4bc3cf26582ee2
     }
 
     // Update is called once per frame
@@ -313,7 +316,6 @@ public class Player : MonoBehaviour
                 movingLanes = false;
                 damageInvunerability = false;
                 disableInput = false;
-                forceMoveVel = 0f;
                 forceMoveSpeed = runSpeed;
             }
             else
@@ -614,7 +616,7 @@ public class Player : MonoBehaviour
     {
         StopCoroutine("GotHit");
 
-        camScript.Distance = camDistarnceStart;
+        camScript.Lookoffset = camLookOffsetStart;
 
         transform.parent = null;
         cam.gameObject.transform.parent = null;
