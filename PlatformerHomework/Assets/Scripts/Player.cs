@@ -121,13 +121,7 @@ public class Player : MonoBehaviour
         WriteCrystals();
         syphonCollider = GetComponentInChildren<SphereCollider>();
 
-<<<<<<< HEAD
-        camDistarnceStart = camScript.Distance;
-
-
-=======
         camLookOffsetStart = camScript.Lookoffset;
->>>>>>> 24b26d2ecae4eb090cb9e9201a4bc3cf26582ee2
     }
 
     // Update is called once per frame
