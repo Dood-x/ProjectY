@@ -58,6 +58,9 @@ public class Player : MonoBehaviour
     public float hitInvincibilityTime = 2f;
     public float invincibilityFlashingInterval = 0.25f;
 
+    public float deathWaitTime = 3f;
+    public float respawnTime = 1f;
+
     bool respawning;
     //add values to this in order to launch the player in a direction
     Vector3 launchSpeed;
@@ -81,6 +84,11 @@ public class Player : MonoBehaviour
     Vector3 moveDestination;
 
     float forceMoveSpeed;
+
+    bool dead = false;
+
+    //Dictionary<MeshRenderer, Mesh> playerMeshes;
+    //Dictionary<SkinnedMeshRenderer, Mesh> skinnedPlayerMeshes;
 
     Vector3 camLookOffsetStart;
     private struct RespawnPoint
@@ -315,7 +323,7 @@ public class Player : MonoBehaviour
             else
             {
                 //speed will be smoothed
-                forceMoveSpeed = Mathf.Lerp(forceMoveSpeed, walkSpeed, Time.deltaTime * 2f);
+                forceMoveSpeed = Mathf.Lerp(forceMoveSpeed, walkSpeed, Time.deltaTime * 1f);
                 Vector3 moveDirection = distance.normalized * Time.deltaTime * forceMoveSpeed;
                 animator.SetFloat("Speed", forceMoveSpeed / runSpeed);
                 Quaternion rotation = Quaternion.LookRotation(distance.normalized);
@@ -387,7 +395,9 @@ public class Player : MonoBehaviour
         if (health <= 0)
         {
             //death animation
-            Respawn();
+            animator.SetBool("Dead", true);
+
+            StartCoroutine("DeathCountdown", enemy.transform.position);
         }
         else
         {
@@ -450,7 +460,7 @@ public class Player : MonoBehaviour
             return;
         }
 
-        if ((disableInput && damageInvunerability) && !movingLanes)
+        if ((disableInput && damageInvunerability) && !movingLanes && !respawning && !dead)
         {
             disableInput = false;
         }
@@ -557,11 +567,8 @@ public class Player : MonoBehaviour
 
     }
 
-
-    IEnumerator GotHit(Vector3 impactPosition)
+    void LaunchAwayFrom(Vector3 impactPosition)
     {
-        //temporary rigidbody
-
         //direction from impact toward player
         Vector3 dir = transform.position - impactPosition;
         // see if we are launching player forward or backward
@@ -581,6 +588,12 @@ public class Player : MonoBehaviour
         damageInvunerability = true;
 
         cc.Move(launchSpeed * Time.deltaTime);
+    }
+
+
+    IEnumerator GotHit(Vector3 impactPosition)
+    {
+        LaunchAwayFrom(impactPosition);
 
         Physics.IgnoreLayerCollision(8, 9, true);
 
@@ -609,8 +622,11 @@ public class Player : MonoBehaviour
     void ClearState()
     {
         StopCoroutine("GotHit");
+        StopCoroutine("DeathCountdown");
 
         camScript.Lookoffset = camLookOffsetStart;
+        animator.SetBool("Dead", false);
+        dead = false;
 
         transform.parent = null;
         cam.gameObject.transform.parent = null;
@@ -641,10 +657,12 @@ public class Player : MonoBehaviour
     {
         HidePlayer();
         disableInput = true;
+        damageInvunerability = true;
         respawning = true;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(respawnTime);
         respawning = false;
         disableInput = false;
+        damageInvunerability = false;
         ShowPlayer();
     }
 
@@ -705,6 +723,27 @@ public class Player : MonoBehaviour
         damageInvunerability = true;
         movingLanes = true;
         forceMoveSpeed = runSpeed;
+
+    }
+
+    IEnumerator DeathCountdown(Vector3 impactPosition)
+    {
+        dead = true; 
+
+        LaunchAwayFrom(impactPosition);
+
+        Physics.IgnoreLayerCollision(8, 9, true);
+
+        disableInput = true;
+        damageInvunerability = true;
+        //respawning = true;
+
+        yield return new WaitForSeconds(deathWaitTime);
+
+        animator.SetBool("Dead", false);
+        animator.Play("New State", 2);
+        Physics.IgnoreLayerCollision(8, 9, false);
+        Respawn();
 
     }
 

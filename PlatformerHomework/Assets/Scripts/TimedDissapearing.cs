@@ -20,6 +20,8 @@ public class TimedDissapearing : MonoBehaviour
     Material ogMaterial;
 
     float timeFadingStart;
+
+
     // Start is called before the first frame update
     void Start()
     {
