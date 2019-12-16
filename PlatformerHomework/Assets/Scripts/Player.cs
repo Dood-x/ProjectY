@@ -123,11 +123,31 @@ public class Player : MonoBehaviour
         syphonCollider = GetComponentInChildren<SphereCollider>();
 
         camDistarnceStart = camScript.Distance;
+
+
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        int lijeviKlik = 1;
+        int desniKlik = lijeviKlik - 1;
+        int srednjiKlik = lijeviKlik * 2 + desniKlik;
+
+        if (Input.GetMouseButtonDown(lijeviKlik))
+        {
+            Debug.Log("Lijevi klik pritisnut");
+        }
+        else if (Input.GetMouseButtonDown(desniKlik))
+        {
+            Debug.Log("Desni klik pritisnut");
+        }
+        else if (Input.GetMouseButtonDown(srednjiKlik))
+        {
+            Debug.Log("Srednji klik pritisnut");
+        }
+
         if (movingLanes)
         {
             MoveLanes();
@@ -540,6 +560,7 @@ public class Player : MonoBehaviour
 
 
     }
+
 
     IEnumerator GotHit(Vector3 impactPosition)
     {
