@@ -6,9 +6,12 @@ public class MovingPlatform : MonoBehaviour
 {
     public float frontBackAmplitude;
     public float frontBackTime;
+    public bool startForward = true;
     [Space(10)]
     public float upDownAmplitude;
     public float upDownTime;
+    public bool startUp = true;
+
 
 
     bool goDown;
@@ -34,6 +37,12 @@ public class MovingPlatform : MonoBehaviour
         startPosition = transform.position;
         previousPos = startPosition;
         rb = GetComponent<Rigidbody>();
+
+        if (!startForward)
+            goBack = true;
+
+        if (!startUp)
+            goDown = true;
     }
 
     // Update is called once per frame
