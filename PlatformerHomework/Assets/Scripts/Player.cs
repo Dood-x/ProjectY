@@ -61,6 +61,10 @@ public class Player : MonoBehaviour
     public float deathWaitTime = 3f;
     public float respawnTime = 1f;
 
+    [Header("Camera")]
+    public bool switchDirection = true;
+    public float switchDirectionLerp = 2f;
+
     bool respawning;
     //add values to this in order to launch the player in a direction
     Vector3 launchSpeed;
@@ -216,7 +220,7 @@ public class Player : MonoBehaviour
         }
 
         //switches the camera look offset depending on whether we are going forward or back
-        //SwitchDirection(v); ubija me, ne treba za sad
+        SwitchDirection(transform.forward.z); //ubija me, ne treba za sad
 
 
         if (cc.isGrounded && !impulseLeap)
@@ -328,17 +332,23 @@ public class Player : MonoBehaviour
 
     void SwitchDirection(float v)
     {
-        Vector3 lookOffset = camScript.Lookoffset;
+        if (!switchDirection)
+            return;
+
+        Vector3 lookOffsetTraget = camLookOffsetStart;
 
         if (v > 0)
         {
-            lookOffset.z = Mathf.Abs(lookOffset.z);
-            camScript.Lookoffset = lookOffset;
+
+            lookOffsetTraget.z = Mathf.Abs(camLookOffsetStart.z);
+            lookOffsetTraget.z = Mathf.Lerp(camScript.lookoffset.z, lookOffsetTraget.z, switchDirectionLerp * Time.deltaTime);
+            camScript.Lookoffset = lookOffsetTraget;
         }
         else if (v < 0)
         {
-            lookOffset.z = -Mathf.Abs(lookOffset.z);
-            camScript.Lookoffset = lookOffset;
+            lookOffsetTraget.z = -Mathf.Abs(camLookOffsetStart.z);
+            lookOffsetTraget.z = Mathf.Lerp(camScript.lookoffset.z, lookOffsetTraget.z, switchDirectionLerp * Time.deltaTime);
+            camScript.Lookoffset = lookOffsetTraget;
         }
     }
 
