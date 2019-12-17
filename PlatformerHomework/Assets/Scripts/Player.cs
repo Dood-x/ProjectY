@@ -314,9 +314,10 @@ public class Player : MonoBehaviour
 
                 cc.Move(moveDirection);
 
-                Vector3 look = camScript.Lookoffset;
-                look.x -= moveDirection.x;
-                camScript.Lookoffset = look;
+                //keeps the lookoffset at the starting lane!
+                //Vector3 look = camScript.Lookoffset;
+                //look.x -= moveDirection.x;
+                //camScript.Lookoffset = look;
             }
 
 
