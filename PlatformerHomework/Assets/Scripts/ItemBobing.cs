@@ -13,6 +13,10 @@ public class ItemBobing : MonoBehaviour
     bool goDown;
     Vector3 smoothSpeed;
     float startTime;
+
+    Syphon syphonScript;
+
+    bool stopBobbing = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +27,10 @@ public class ItemBobing : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (stopBobbing)
+        {
+            return;
+        }
         int sign = goDown ? -1 : 1;
         Vector3 newPos = transform.position;
         float t = (Time.time - startTime) / bobbingTime;
@@ -40,11 +48,13 @@ public class ItemBobing : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player" && syphonScript == null)
         {
             // add the syphon script to this item if they entered the players trigger 
-            Syphon syphonScript = gameObject.AddComponent<Syphon>();
+            syphonScript = gameObject.AddComponent<Syphon>();
             syphonScript.player = other.transform;
+            Debug.Log("syphoncreated");
+            stopBobbing = true;
         }
     }
 }
