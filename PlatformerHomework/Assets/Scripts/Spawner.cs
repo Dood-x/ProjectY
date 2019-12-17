@@ -11,6 +11,9 @@ public class Spawner : MonoBehaviour
 
     public Vector3 spawnLaunchSpeed;
 
+    public bool despawnSpawned = true;
+    public float despawnTime = 7f;
+
 
     float timer;
     // Start is called before the first frame update
@@ -34,12 +37,26 @@ public class Spawner : MonoBehaviour
 
             //spawn 
             GameObject spawned = Instantiate(spawn, transform.position, Quaternion.Euler(spawnRotation));
-            Rigidbody rb = spawned.GetComponent<Rigidbody>();
 
-            if (rb)
+            if (spawned)
             {
-                rb.velocity = spawnLaunchSpeed;
+                DamagePlayer dp = spawned.GetComponent<DamagePlayer>();
+
+                if (dp)
+                {
+                    dp.despawnAfterTime = despawnSpawned;
+                    dp.despawnTime = despawnTime;
+                }
+
+
+                Rigidbody rb = spawned.GetComponent<Rigidbody>();
+
+                if (rb)
+                {
+                    rb.velocity = spawnLaunchSpeed;
+                }
             }
+            
 
         }
     }

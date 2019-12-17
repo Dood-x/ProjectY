@@ -3117,7 +3117,7 @@ SkinnedMeshRenderer:
   m_SortingOrder: 0
   serializedVersion: 2
   m_Quality: 0
-  m_UpdateWhenOffscreen: 0
+  m_UpdateWhenOffscreen: 1
   m_SkinnedMotionVectors: 1
   m_Mesh: {fileID: 6622264641530768373, guid: 6c75b918454437344acca7d361889e21, type: 3}
   m_Bones:
@@ -5022,7 +5022,7 @@ SkinnedMeshRenderer:
   m_SortingOrder: 0
   serializedVersion: 2
   m_Quality: 0
-  m_UpdateWhenOffscreen: 0
+  m_UpdateWhenOffscreen: 1
   m_SkinnedMotionVectors: 1
   m_Mesh: {fileID: 686719364286454898, guid: 6c75b918454437344acca7d361889e21, type: 3}
   m_Bones:
@@ -5630,7 +5630,7 @@ SkinnedMeshRenderer:
   m_SortingOrder: 0
   serializedVersion: 2
   m_Quality: 0
-  m_UpdateWhenOffscreen: 0
+  m_UpdateWhenOffscreen: 1
   m_SkinnedMotionVectors: 1
   m_Mesh: {fileID: 7025441059761184711, guid: 6c75b918454437344acca7d361889e21, type: 3}
   m_Bones:
@@ -16561,7 +16561,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6988189870039682960}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6911028213276798120}
@@ -16579,7 +16579,7 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 1
-  m_Center: {x: 0, y: 0.5, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7024607891956640628
 GameObject:
   m_ObjectHideFlags: 0
@@ -18414,6 +18414,10 @@ MonoBehaviour:
   hitRelativeImpulseSpeed: {x: 0, y: 3, z: 3}
   hitInvincibilityTime: 2
   invincibilityFlashingInterval: 0.25
+  deathWaitTime: 3
+  respawnTime: 0.5
+  switchDirection: 1
+  switchDirectionLerp: 2
 --- !u!95 &4334717263717223818
 Animator:
   serializedVersion: 3
@@ -20505,7 +20509,7 @@ SkinnedMeshRenderer:
   m_SortingOrder: 0
   serializedVersion: 2
   m_Quality: 0
-  m_UpdateWhenOffscreen: 0
+  m_UpdateWhenOffscreen: 1
   m_SkinnedMotionVectors: 1
   m_Mesh: {fileID: 2574759656405186444, guid: 6c75b918454437344acca7d361889e21, type: 3}
   m_Bones:
