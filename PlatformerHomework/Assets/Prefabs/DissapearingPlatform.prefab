@@ -105,7 +105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d500ec606e65a5498055b894ac97f63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeToRed: 3
+  timeToRed: 0.5
   timeToDissapear: 1
   redMaterial: {fileID: 2100000, guid: 0a3389be8c628984bbc1a94277f26a24, type: 2}
   fadedMaterial: {fileID: 2100000, guid: 83a46ffdceb4f4846b93c46f667958da, type: 2}
