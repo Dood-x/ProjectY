@@ -1125,9 +1125,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 104ec3d0f0241614489f7a3c7ba9958e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  limitXRotation: 0
-  xMinLimit: 0
-  xMaxLimit: 120
+  limitXRotation: 1
+  xMinLimit: -140
+  xMaxLimit: -40
   follow: {fileID: 122598397}
   inverseXAxis: 1
   inverseYAxis: 0
@@ -1160,13 +1160,13 @@ MonoBehaviour:
   useSoftLimits: 0
   yMinSoftLimit: 20
   yMaxSoftLimit: 20
-  lookoffset: {x: 0, y: 2.5, z: 0}
+  lookoffset: {x: 0, y: 1, z: 2.4}
   camSmoothDampTime: 0.06
   camClippingSmoothDampTime: 0.04
   collisionMargin: 0.05
   camObstacle:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1
   lockOnTargetsTag: LockOnTarget
   lockOnToggle: 1
   lockOnDistanceLimit: 0
