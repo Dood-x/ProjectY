@@ -9,6 +9,7 @@ public class Spawner : MonoBehaviour
     public Vector3 spawnRotation;
     public float interval = 3f;
 
+    public Vector3 spawnLaunchSpeed;
 
 
     float timer;
@@ -19,6 +20,8 @@ public class Spawner : MonoBehaviour
         {
             Destroy(this);
         }
+        // we start by spawingin the first object at frame 1
+        timer = interval;
     }
 
     // Update is called once per frame
@@ -30,7 +33,13 @@ public class Spawner : MonoBehaviour
             timer -= interval;
 
             //spawn 
-            Instantiate(spawn, transform.position, Quaternion.Euler(spawnRotation));
+            GameObject spawned = Instantiate(spawn, transform.position, Quaternion.Euler(spawnRotation));
+            Rigidbody rb = spawned.GetComponent<Rigidbody>();
+
+            if (rb)
+            {
+                rb.velocity = spawnLaunchSpeed;
+            }
 
         }
     }
