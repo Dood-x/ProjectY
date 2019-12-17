@@ -91,6 +91,9 @@ public class Player : MonoBehaviour
 
     bool dead = false;
 
+    int idleCounter;
+    int idleCounterTarget = 3;
+
     //Dictionary<MeshRenderer, Mesh> playerMeshes;
     //Dictionary<SkinnedMeshRenderer, Mesh> skinnedPlayerMeshes;
 
@@ -134,6 +137,8 @@ public class Player : MonoBehaviour
         syphonCollider = GetComponentInChildren<SphereCollider>();
 
         camLookOffsetStart = camScript.Lookoffset;
+
+        idleCounterTarget = Random.Range(2, 4);
     }
 
     // Update is called once per frame
@@ -359,6 +364,16 @@ public class Player : MonoBehaviour
         cc.Move(launchSpeed * Time.deltaTime);
         animator.SetBool("Leap", false);
 
+    }
+    public void IdleOver()
+    {
+        idleCounter++;
+        if (idleCounter >= idleCounterTarget)
+        {
+            idleCounter = 0;
+            idleCounterTarget = Random.Range(2, 4);
+            animator.SetTrigger("idleSpecial");
+        }
     }
     public void ImpulseLeapEnd()
     {

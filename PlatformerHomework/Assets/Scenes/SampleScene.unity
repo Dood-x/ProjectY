@@ -519,8 +519,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   frontBackAmplitude: 3
   frontBackTime: 2
+  startForward: 1
   upDownAmplitude: 0
   upDownTime: 0
+  startUp: 1
 --- !u!1 &321852255
 GameObject:
   m_ObjectHideFlags: 0
@@ -944,8 +946,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   frontBackAmplitude: 0
   frontBackTime: 0
+  startForward: 1
   upDownAmplitude: 5
   upDownTime: 2
+  startUp: 1
 --- !u!65 &747444294
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1053,6 +1057,16 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 6042569036446328073, guid: 3dd16537b0515134cb68a539e2a7aaa1,
+        type: 3}
+      propertyPath: m_Center.y
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6042569036446328073, guid: 3dd16537b0515134cb68a539e2a7aaa1,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6042569036446328076, guid: 3dd16537b0515134cb68a539e2a7aaa1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1107,16 +1121,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6042569036446328073, guid: 3dd16537b0515134cb68a539e2a7aaa1,
-        type: 3}
-      propertyPath: m_Center.y
-      value: -0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6042569036446328073, guid: 3dd16537b0515134cb68a539e2a7aaa1,
-        type: 3}
-      propertyPath: m_Size.y
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3dd16537b0515134cb68a539e2a7aaa1, type: 3}
@@ -1304,8 +1308,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   frontBackAmplitude: 0
   frontBackTime: 0
+  startForward: 1
   upDownAmplitude: 5
   upDownTime: 2
+  startUp: 1
 --- !u!65 &1178574820
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1483,8 +1489,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   frontBackAmplitude: 3
   frontBackTime: 2
+  startForward: 1
   upDownAmplitude: 0
   upDownTime: 0
+  startUp: 1
 --- !u!1 &1208804888
 GameObject:
   m_ObjectHideFlags: 0
