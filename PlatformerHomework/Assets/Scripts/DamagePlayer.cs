@@ -8,11 +8,15 @@ public class DamagePlayer : MonoBehaviour
     public float damageAmount = 10f;
     public float minDamagingVelocity = 0f;
 
+    public bool despawnAfterTime = true;
+    public float despawnTime = 7f;
+
     // interval beween consecutive damage
     //[Tooltip("Interval between consecutive damage")]
     //public float damageInterval = 1f;
 
     Rigidbody rb;
+    float timer;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +26,14 @@ public class DamagePlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (despawnAfterTime)
+        {
+            timer += Time.deltaTime;
+            if (timer >= despawnTime)
+            {
+                Destroy(gameObject);
+            }
+        }
        
     }
 
