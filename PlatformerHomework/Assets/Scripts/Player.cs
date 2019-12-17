@@ -497,11 +497,19 @@ public class Player : MonoBehaviour
             if (cc.isGrounded && other.tag == "DissapearingPlatform")
             {
                 TimedDissapearing timedScript = other.GetComponent<TimedDissapearing>();
-                if (timedScript != null)
+
+                // if the timedscript was destroyed, or is in respawning mode
+                if (timedScript == null || (timedScript.enabled == true && timedScript.IsRespawning == true))
+                {
+                    timedScript = other.gameObject.AddComponent<TimedDissapearing>();
+                    timedScript.enabled = true;
+                }
+                else
                 {
                     // enable existing script to start the dissapearing timer
                     timedScript.enabled = true;
                 }
+                    
             }
 
             if (currentPlatform == null)

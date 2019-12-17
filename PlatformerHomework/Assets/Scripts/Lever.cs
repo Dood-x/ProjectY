@@ -84,7 +84,6 @@ public class Lever : MonoBehaviour
     {
         // lever has an animation intro before starting to open the portcullis
         yield return new WaitForSeconds(1f);
-        Debug.Log("Opening");
         // start the portcullis opening animaiton
         if (portcullisAnim)
             portcullisAnim.speed = 1;

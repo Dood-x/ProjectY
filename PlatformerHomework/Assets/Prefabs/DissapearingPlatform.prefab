@@ -187,6 +187,9 @@ MonoBehaviour:
   timeToRed: 3
   timeToDissapear: 1
   redMaterial: {fileID: 2100000, guid: 0a3389be8c628984bbc1a94277f26a24, type: 2}
-  fadedMaterial: {fileID: 2100000, guid: 83a46ffdceb4f4846b93c46f667958da, type: 2}
+  redFadedMaterial: {fileID: 2100000, guid: 83a46ffdceb4f4846b93c46f667958da, type: 2}
+  ogFadedMaterial: {fileID: 2100000, guid: 034f748434e85c845a3c9c81e76aeae2, type: 2}
   materialFadeTime: 0.5
   dissapearFadeTime: 0.5
+  respawn: 1
+  timeToRespawn: 4
