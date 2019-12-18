@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 81260325}
   - component: {fileID: 81260326}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -101,7 +101,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 8955146812381107103, guid: ed905f59aa405404b8df7d201ff7995e, type: 3}
+  - {fileID: 2100000, guid: f19e16b6eef93434585225c02136892b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
