@@ -12,6 +12,8 @@ public class MoveLanes : MonoBehaviour
     public Transform lane1;
     public Transform lane2;
 
+    public bool lockCameraDistance = false;
+
     int laneIndex;
     // Start is called before the first frame update
     void Start()
@@ -67,7 +69,7 @@ public class MoveLanes : MonoBehaviour
 
                 //Vector3 moveDir = (laneEnd.position - laneStart.position).normalized;
 
-                playerScript.MoveToLane(destinaiton);
+                playerScript.MoveToLane(destinaiton, this);
 
 
             }

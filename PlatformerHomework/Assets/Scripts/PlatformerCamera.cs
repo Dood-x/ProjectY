@@ -1101,6 +1101,8 @@ namespace PlatformerHomework{
 			if(follow.forward.x < 0){ x = 360 - x;}
 			y = defaultYAngle;
 
+            x = -90f;
+
 			Quaternion rotation2 = Quaternion.Euler(y, x, 0);
 
 
@@ -1305,427 +1307,130 @@ namespace PlatformerHomework{
             /**
 				Camera modes are handled here
 			 */
-            switch (camstate) {
-			/**
-				ThirdPersonCam is the regular third person camera mode
-			 */
-			case CamStates.ThirdPersonCam:
+            switch (camstate)
+            {
+                /**
+                    ThirdPersonCam is the regular third person camera mode
+                 */
+                case CamStates.ThirdPersonCam:
 
-				if(lockOnReticle != null)
-				{
-					lockOnReticle.sizeDelta = Vector2.zero;
-				}
+                    if (lockOnReticle != null)
+                    {
+                        lockOnReticle.sizeDelta = Vector2.zero;
+                    }
 
-				if (dynamicControlTypeDetection)
-				{
-					if(usingController)
-					{
-						if(GetCameraAxis(rightStickX) == 0 && GetCameraAxis(rightStickY) == 0 && (GetCameraAxis(mouseInputX) > 0 || GetCameraAxis(mouseInputY) > 0))
-						{
-							toggleInput();
-						}
-					}
-					if (usingMouse)
-					{
-						if((GetCameraAxis(rightStickX) > 0 || GetCameraAxis(rightStickY) > 0) && GetCameraAxis(mouseInputX) == 0 && GetCameraAxis(mouseInputY) == 0)
-						{
-							toggleInput();
-						}
-					}
-				}
-				/**
-					Mouse input
-				 */
-				if(usingMouse)
-				{
-					//analog movement
-					xDelta = GetCameraAxis(mouseInputX) * xSpeed * distance;
-					yDelta = GetCameraAxis(mouseInputY) * ySpeed * distance;
-
-					x += inverseXAxis ? xDelta : -xDelta;
-					y += InverseYAxis ? yDelta : -yDelta;
-					// x += GetCameraAxis(horizontalAxis) * xSpeed * distance *  0.02f;
-					// y -= GetCameraAxis(verticalAxis) * ySpeed * distance * 0.02f;
-				}
-
-
-
-				/**
-					Controller input
-				 */
-				if(usingController)
-				{
-					// if no camera controller input is detected
-					if(GetCameraAxis(rightStickY) == 0)
-					{
-						if(useSoftLimits)
-						{
-							if( y > yMaxLimit && y < yMaxLimit + yLerpSpeed)
-							{
-								y = yMaxSoftLimit;
-							}
-							else if (y < yMinSoftLimit && y > yMinSoftLimit - yLerpSpeed)
-							{
-								y = yMinSoftLimit;
-							}
-							else {
-								if(y > yMaxSoftLimit)
-								{
-									y = y-yLerpSpeed;
-								}
-								else if (y < yMinSoftLimit)
-								{
-									y = y + yLerpSpeed;
-								}
-							}
-						}
-						else if (lerpCameraToDefault)
-						{
-							if (y < yLerpSpeed+ defaultYAngle && y > defaultYAngle - yLerpSpeed)
-								y = defaultYAngle;
-							else
-								y = (y > defaultYAngle ? y-yLerpSpeed : y+yLerpSpeed);
-
-						}
-					}
-					else
-					{
-						yDelta = GetCameraAxis(rightStickY) * ySpeed * distance;
-						y = (inverseYAxis) ? y +yDelta : y-yDelta;
-
-					}
-
-					xDelta = GetCameraAxis(rightStickX) * xSpeed * distance;
-					x = (inverseXAxis) ? x +xDelta : x-xDelta;
-
-				}
-
-				y = ClampAngle(y, yMinLimit, yMaxLimit);
-
-                if (limitXRotation)
-                {
-                    x = ClampAngle(x, xMinLimit, xMaxLimit);
-                }
-
-
-				//make sure the camera can keep up with the movement speed
-
-				// ole algorithm that uses only smoothdamp
-
-				lookDir = characterOffset - this.transform.position;
-				lookDir.y = 0;
-				lookDir.Normalize ();
-
-				
-				MoveCamera(x, y, distance, lookAt, lockCameraYDuringCollision);
-
-				smoothLookAt = SmoothLookingAt(smoothLookAt, lookAt, lookSpeed);
-
-				transform.LookAt (smoothLookAt);
-
-				break;
-			/**
-				Reset cam resets the camera to its default angle and position
-			 */
-			case CamStates.ResetCam:
-
-				x = Vector3.Angle(follow.forward, Vector3.forward);
-				if(follow.forward.x < 0){ x = 360 - x;}
-				y = defaultYAngle;
-
-				MoveCamera(x, y, distance, lookAt, lockCameraYDuringCollision);
-
-				transform.LookAt (lookAt);
-
-				break;
-			/**
-				Lock on locks on to a target
-			 */
-			case CamStates.LockOn:
-
-				//if there are enemies
-				if (lockOnTarget != null){
-
-					//setup lookat
-
-					lockOnLookAt = (characterOffset + lockOnTarget.transform.position) / 2;
-
-					//float camCharTargetAngle = 180 - defaultYAngle;
-
-					float targetDistance = new Vector3(lockOnTarget.transform.position.x - lookAt.x, 0 ,lockOnTarget.transform.position.z - lookAt.z).magnitude;
-
-					if (targetDistance > lockOnCameraFullRotationMaxDistance){
-						//farCam
-						if (debugOn && debugLockOnCameraDistanceBehaviour)
-						{
-							Debug.Log("FarCamActive");
-						}
-
-						Vector3 floorAngle = lockOnLookAt;
-						floorAngle.y = 0;
-						Vector3 floorChar = lookAt;
-						floorChar.y = 0;
-						floorAngle -= floorChar;
-
-
-						float centerAngle = Vector3.Angle(Vector3.forward, floorAngle);
-
-						if(floorAngle.x < 0){
-							centerAngle = 360 - centerAngle;
-						}
-						//Debug.Log(centerAngle);
-						if(Mathf.Abs(xLockOn - centerAngle) > 180){
-							if(xLockOn -centerAngle > 180){
-								float newAngle = 360 - (xLockOn-centerAngle);
-								centerAngle = xLockOn + newAngle;
-							}
-							else if(xLockOn -centerAngle < -180){
-								float newAngle = 360 + (xLockOn - centerAngle);
-								centerAngle = xLockOn - newAngle;
-							}
-						}
-						//Debug.Log(centerAngle);
-
-						if(usingController)
-						{
-							//xlockon lerp to centerAngle
-							if( GetCameraAxis(rightStickX) == 0){
-								//y released needs to return to default
-
-								//if (y < yLerpSpeed+ defaultYAngle || Math.Abs(y) > defaultYAngle - yLerpSpeed)
-								if (xLockOn < yLerpSpeed+ centerAngle && xLockOn > centerAngle - yLerpSpeed){
-									xLockOn = centerAngle;
-								} else {
-									xLockOn = (xLockOn > centerAngle ? xLockOn-yLerpSpeed : xLockOn+yLerpSpeed);
-								}
-							}
-							else{
-								xDelta += GetCameraAxis(rightStickX) * xSpeed/2 * distance;
-								xLockOn += GetCameraAxis(rightStickX) * xSpeed/2 * distance;
-							}
-						}
-						if(usingMouse)
-						{
-							//float xLockOnDelta = GetCameraAxis(mouseInputX) * xSpeed/2 * distance;
-							float xDelta = GetCameraAxis(mouseInputX) * xSpeed/2 * distance;
-							xLockOn = inverseXAxis ? xLockOn + xDelta : xLockOn -xDelta;
-						}
-
-
-						
-
-						//calculate allowed angle range
-
-						
-						// calculating how the camera should behave in order to keep the player character a set number away from the cameras borders depends on the hFOV and aspect ratio
-						if(debugOn && debugCameraLockOnCalculations)
-						{
-							//Debug.Log("horizontalFOV " + hFOV);
-							//Debug.Log("camera aspect ratio " + cam.aspect );
-						}
-
-
-						float horizontal;
-						float angleLimit;
-
-
-						// projection of follow to cameraToLookAtVector
-						Vector3 cameraToLockOnLookAt = lockOnLookAt - transform.position;
-						Vector3 cameraToFollow = characterOffset - transform.position;
-
-                        //float alpha = Mathf.Cos(Vector3.Angle(cameraToFollow, cameraToLockOnLookAt) * Mathf.Deg2Rad);
-                        //float followScalarProjection = cameraToLockOnLookAt.magnitude > cameraToFollow.magnitude ? cameraToFollow.magnitude * alpha : cameraToLockOnLookAt.magnitude * alpha;
-
-                        Vector3 projectedCamToLockOn = new Vector3(cameraToLockOnLookAt.x, 0, cameraToLockOnLookAt.z);
-                        Vector3 projectedFollowToLookAt = characterOffset - lockOnLookAt;
-                        projectedFollowToLookAt.y = 0;
-                        // distance from the camera to the follow(player) when the camera is right behind their back in lock on (constant!)
-                        float projectedFollowDistance = projectedCamToLockOn.magnitude - projectedFollowToLookAt.magnitude;
-                        
-                        //horizontal length of the camera frustum at the distance of the follow(player)
-                        horizontal = Mathf.Tan(hFOV * Mathf.Deg2Rad *.5f) * cameraToFollow.magnitude * lockOnRotationRangePercent * 0.01f;
-                        //horizontal = Mathf.Tan(hFOV * Mathf.Deg2Rad *.5f) * followScalarProjection * lockOnRotationRangePercent * 0.01f;
-                        //angleLimit = Mathf.Atan(horizontal / (lockOnDistance-followScalarProjection)) * Mathf.Rad2Deg; //old lockondistance
-
-                        //the angle the camera can rotate in order for the follow to be within the lockOnRotationRangePercent screen percentage
-                        angleLimit = Mathf.Atan(horizontal / (lockOnDistance- projectedFollowDistance)) * Mathf.Rad2Deg; //old lockondistance
-
-                        angleLimit = Math.Abs(angleLimit);
-
-                        // smooth interpolation to angle limit 
-                        if (angleLimitCurrent > Mathf.Abs(angleLimit))
+                    if (dynamicControlTypeDetection)
+                    {
+                        if (usingController)
                         {
-                            angleLimitCurrent -= farCamTransitionSpeed * Time.deltaTime;
+                            if (GetCameraAxis(rightStickX) == 0 && GetCameraAxis(rightStickY) == 0 && (GetCameraAxis(mouseInputX) > 0 || GetCameraAxis(mouseInputY) > 0))
+                            {
+                                toggleInput();
+                            }
+                        }
+                        if (usingMouse)
+                        {
+                            if ((GetCameraAxis(rightStickX) > 0 || GetCameraAxis(rightStickY) > 0) && GetCameraAxis(mouseInputX) == 0 && GetCameraAxis(mouseInputY) == 0)
+                            {
+                                toggleInput();
+                            }
+                        }
+                    }
+                    /**
+                        Mouse input
+                     */
+                    if (usingMouse)
+                    {
+                        //analog movement
+                        xDelta = GetCameraAxis(mouseInputX) * xSpeed * distance;
+                        yDelta = GetCameraAxis(mouseInputY) * ySpeed * distance;
+
+                        x += inverseXAxis ? xDelta : -xDelta;
+                        y += InverseYAxis ? yDelta : -yDelta;
+                        // x += GetCameraAxis(horizontalAxis) * xSpeed * distance *  0.02f;
+                        // y -= GetCameraAxis(verticalAxis) * ySpeed * distance * 0.02f;
+                    }
+
+
+
+                    /**
+                        Controller input
+                     */
+                    if (usingController)
+                    {
+                        // if no camera controller input is detected
+                        if (GetCameraAxis(rightStickY) == 0)
+                        {
+                            if (useSoftLimits)
+                            {
+                                if (y > yMaxLimit && y < yMaxLimit + yLerpSpeed)
+                                {
+                                    y = yMaxSoftLimit;
+                                }
+                                else if (y < yMinSoftLimit && y > yMinSoftLimit - yLerpSpeed)
+                                {
+                                    y = yMinSoftLimit;
+                                }
+                                else
+                                {
+                                    if (y > yMaxSoftLimit)
+                                    {
+                                        y = y - yLerpSpeed;
+                                    }
+                                    else if (y < yMinSoftLimit)
+                                    {
+                                        y = y + yLerpSpeed;
+                                    }
+                                }
+                            }
+                            else if (lerpCameraToDefault)
+                            {
+                                if (y < yLerpSpeed + defaultYAngle && y > defaultYAngle - yLerpSpeed)
+                                    y = defaultYAngle;
+                                else
+                                    y = (y > defaultYAngle ? y - yLerpSpeed : y + yLerpSpeed);
+
+                            }
+                        }
+                        else
+                        {
+                            yDelta = GetCameraAxis(rightStickY) * ySpeed * distance;
+                            y = (inverseYAxis) ? y + yDelta : y - yDelta;
+
                         }
 
-                        if (angleLimitCurrent < Mathf.Abs(angleLimit))
-                        {
-                            angleLimitCurrent = angleLimit;
-                        }
-
-
-
-                        xLockOn = ClampAngle(xLockOn, centerAngle - angleLimitCurrent, centerAngle + angleLimitCurrent);
-
-						if(debugOn && debugCameraLockOnCalculations)
-						{
-							//Debug.Log("lockOnRotationRangePercent " + lockOnRotationRangePercent * 0.01f);
-							Debug.Log("horizontal " + horizontal);
-							//Debug.Log("followScalarProjection " + followScalarProjection);
-							Debug.Log("angle limit " + angleLimit);
-							Debug.Log("angle limit current" + angleLimitCurrent);
-                            //Debug.DrawLine(transform.position, follow.position + lookoffset, Color.blue);
-                            //Debug.DrawLine(transform.position, lockOnLookAt, Color.red);
-
-                            //Debug.Log("xLockon " + xLockOn);
-						}
-
-						//y lockon
-
-					}else{
-						//closeCam
-						if (debugOn && debugLockOnCameraDistanceBehaviour)
-						{
-							Debug.Log("closeCamActive");
-						}
-
-						if(usingController)
-						{
-							xDelta = GetCameraAxis(rightStickX) * xSpeed/2 * distance;
-							xLockOn += InverseXAxis ? xDelta : - xDelta;
-						} 
-						else if(usingMouse)
-						{
-							xDelta = GetCameraAxis(mouseInputX) * xSpeed/2 * distance;
-							xLockOn += InverseXAxis ? xDelta : - xDelta;
-						}
-                        angleLimitCurrent = angleLimitStart;
+                        xDelta = GetCameraAxis(rightStickX) * xSpeed * distance;
+                        x = (inverseXAxis) ? x + xDelta : x - xDelta;
 
                     }
 
-					//if(debugOn && debugCameraLockOnCalculations)
-					//{
-					//		Debug.Log("xLockon " + xLockOn);
-					//}
+                    y = ClampAngle(y, yMinLimit, yMaxLimit);
+
+                    if (limitXRotation)
+                    {
+                        x = ClampAngle(x, xMinLimit, xMaxLimit);
+                    }
 
 
-					// angle between floor and char to target
-					if(debugOn && debugLockOn)
-					{
-						Debug.DrawLine(transform.position, lockOnLookAt, Color.red);
-						Debug.DrawLine(characterOffset, lockOnLookAt, Color.blue);
+                    //make sure the camera can keep up with the movement speed
 
-						Debug.DrawLine(lockOnLookAt, lockOnTarget.transform.position, Color.green);
-						Debug.DrawLine(characterOffset, transform.position, Color.yellow);
-					}
+                    // ole algorithm that uses only smoothdamp
+
+                    lookDir = characterOffset - this.transform.position;
+                    lookDir.y = 0;
+                    lookDir.Normalize();
 
 
-					//float charTotarget = Vector3.Distance(characterOffset, lockOnLookAt);
+                    MoveCamera(x, y, distance, lookAt, lockCameraYDuringCollision);
 
+                    smoothLookAt = SmoothLookingAt(smoothLookAt, lookAt, lookSpeed);
 
-					Vector3 charToLookVec = lockOnLookAt - characterOffset;
+                    transform.LookAt(smoothLookAt);
 
-
-					Vector3 charToTargetAngle = charToLookVec;
-					charToTargetAngle.y = 0;
-
-					Vector3 crossCTT = Vector3.Cross(charToTargetAngle, charToLookVec);
-					Vector3 posAngl = Quaternion.Euler(0, +90, 0) * charToTargetAngle;
-
-					//float charLockOnAngle = Vector3.Angle(charToTargetAngle, charToLookVec);
-
-					// these rays are at world origin, for debugging angles and cross products
-					if(debugOn && debugLockOn)
-					{
-						//Vector3 origin = Vector3.zero;
-						Debug.Log(Vector3.Angle(charToTargetAngle, lockOnLookAt - characterOffset));
-						Debug.DrawRay(Vector3.zero, lockOnLookAt - characterOffset, Color.cyan);
-						Debug.DrawRay(Vector3.zero, charToTargetAngle, Color.red);
-						Debug.DrawRay(Vector3.zero, crossCTT, Color.green);
-						Debug.DrawRay(Vector3.zero, posAngl , Color.magenta);
-					}
-
-					// using virtual Free cam position
-
-					Vector3 charToTargetProject = lockOnLookAt - characterOffset;
-					charToTargetProject.y = 0;
-
-					Vector3 camFreePos = characterOffset + (Quaternion.AngleAxis(defaultYAngle,Quaternion.AngleAxis(90, follow.up) * charToTargetProject) * (- charToTargetProject.normalized * distance));
-					Vector3 lookAtToThirdPersonCam = camFreePos - lockOnLookAt;
-
-
-					if(debugOn && debugCameraVerticalMovement)
-					{
-							Debug.Log("playerJumping " + playerJumping);
-							Debug.Log("stopCameraFollowingYWhenPlayerIsJumping " + stopCameraFollowingYWhenPlayerIsJumping);
-					}
-
-
-					if(!stopCameraFollowingYWhenPlayerIsJumping || playerJumping == false){
-						Vector3 crossFreexFloor = Vector3.Cross(lookAtToThirdPersonCam, charToTargetProject);
-						Vector3 negativeAngle = Quaternion.Euler(0, -90, 0) * charToTargetProject.normalized; //lookingUp
-
-						if(debugOn && debugCameraVerticalMovement)
-						{
-							Debug.Log("lookAtToThirdPersonCam, -charToTargetProject angle " + Vector3.Angle(lookAtToThirdPersonCam, -charToTargetProject)); //yLockOn positive
-							Debug.DrawLine(Vector3.zero, lookAtToThirdPersonCam, Color.red);
-							Debug.DrawLine(Vector3.zero, -charToTargetProject, Color.blue);
-							Debug.DrawLine(Vector3.zero, crossFreexFloor, Color.magenta);
-							Debug.DrawLine(Vector3.zero, negativeAngle, Color.green);
-						}
-
-
-
-
-						yLockOn = Vector3.Angle(lookAtToThirdPersonCam, -charToTargetProject);
-						if(Mathf.Sign(crossFreexFloor.x) == Mathf.Sign( negativeAngle.x)){
-							yLockOn = 0 - yLockOn;
-						}
-
-
-					}
-
-					Vector3 ThirdPersonCamToChar =  characterOffset - camFreePos;
-
-					Vector3 targetToChar = lockOnLookAt - characterOffset;
-
-					Vector3 crossFCTC = Vector3.Cross(ThirdPersonCamToChar, targetToChar);
-					Vector3 upTriangle = Quaternion.Euler(0, -90, 0) * charToTargetProject.normalized;
-
-					lockOnDistance = FOVLockOnDistance(Mathf.Sign (crossFCTC.x) == Mathf.Sign (upTriangle.x));
-
-
-					//lock on graphic
-					if(lockOnReticle != null)
-					{
-						Vector2 lockOnPos = Camera.main.WorldToViewportPoint(lockOnTarget.transform.position);
-						lockOnReticle.anchorMin = lockOnPos;
-						lockOnReticle.anchorMax = lockOnPos;
-
-						lockOnReticle.sizeDelta = Vector2.Lerp(lockOnReticle.sizeDelta, new Vector2(50f, 50f), lockonAnimSpeed * Time.deltaTime);
-
-						// turn off the reticle when in cooldown
-						if(LNcooldown){
-							lockOnReticle.sizeDelta = Vector2.zero;
-						}
-					}
-
-
-					MoveCamera(xLockOn, yLockOn, lockOnDistance, lockOnLookAt, false);
-
-					smoothLookAt = SmoothLookingAt(smoothLookAt, lockOnLookAt, lookSpeed);
-
-					transform.LookAt (smoothLookAt);
-
-
-				} else{
-					//no emenies free cam
-					goto case CamStates.ThirdPersonCam;
-				}
-				break;
-
-
-			}
+                    break;
+            }
+			
+			
 
 			camFadeObjects (this.transform.position);
 			camFadeFollow();
@@ -1734,97 +1439,7 @@ namespace PlatformerHomework{
 
 		
 
-		// calculates camera distance from lookAt in Lock on mode
-		private float FOVLockOnDistance (bool upsideTri){
-			//using angles and vectors
-
-
-
-			Vector3 charToTargetProject = lockOnLookAt - characterOffset;
-			charToTargetProject.y = 0;
-			// the position the free cam would be in, (projection is rotated so that we get the right vector of the char, and then rotated defaultYangle upwards and multiplied by distance.
-			Vector3 camFreePos = characterOffset + (Quaternion.AngleAxis(defaultYAngle,Quaternion.AngleAxis(90, follow.up) * charToTargetProject) * (- charToTargetProject.normalized * distance));
-			// the base lock on distance, from free cam to target
-			Vector3 camToLookAt = lockOnLookAt - camFreePos;
-
-			Vector3 floorToTarget = (lockOnLookAt - follow.transform.position);
-			float camfloorToTargetAngle;
-			Vector3 floorExtend;
-
-
-
-			if (upsideTri) {
-
-				if(debugOn && debugCameraLookingUpDown)
-				{
-					Debug.Log("Camera Looking Up");
-				}
-
-
-				Vector3 floorToTargetfloor = floorToTarget;
-				floorToTargetfloor.y = 0;
-				float floorToTargetAngle = Vector3.Angle (floorToTarget, floorToTargetfloor);
-
-
-				camfloorToTargetAngle = 180 - floorToTargetAngle;
-
-
-				floorExtend = follow.transform.position + (-charToTargetProject.normalized * lockOnScreenBottomMargin);
-
-			} else {
-
-				if(debugOn && debugCameraLookingUpDown)
-				{
-					Debug.Log("Camera Looking Down");
-				}
-
-
-				floorExtend = characterOffset + (Vector3.up * lockOnScreenBottomMargin);
-
-				camfloorToTargetAngle = Vector3.Angle(Vector3.up, floorToTarget);
-
-			}
-
-			Vector3 ThirdPersonCamToChar = characterOffset - camFreePos;
-
-			Vector3 ThirdPersonCamToFloorOffset = floorExtend - camFreePos;
-
-			float ThirdPersonCamLookAtAngle = Vector3.Angle (ThirdPersonCamToChar, camToLookAt);
-
-			float ThirdPersonCamToFloorOffsetAngle = Vector3.Angle (ThirdPersonCamToFloorOffset, ThirdPersonCamToChar);
-
-			float beta = 180 - ThirdPersonCamLookAtAngle - ThirdPersonCamToFloorOffsetAngle;
-
-			if(debugOn && debugCameraLookingUpDown)
-			{
-				Debug.Log ("ThirdPersonCamLookAtAngle " + ThirdPersonCamLookAtAngle);
-				Debug.Log ("ThirdPersonCamToFloorOffsetAngle " + ThirdPersonCamToFloorOffsetAngle);
-				Debug.DrawLine(characterOffset, camFreePos, Color.green);
-				Debug.DrawLine(characterOffset, follow.position, Color.blue);
-			}
-
-			//sinus
-
-			float x = Mathf.Sin (beta * Mathf.Deg2Rad) * ThirdPersonCamToFloorOffset.magnitude / Mathf.Sin (cam.fieldOfView/2 * Mathf.Deg2Rad);
-
-			//cos
-
-			float floorSide = x + lockOnScreenBottomMargin;
-			if (!upsideTri) {
-				floorSide += Vector3.Magnitude(characterOffset-follow.transform.position);
-			}
-
-
-			float fovDist = Mathf.Sqrt(floorSide * floorSide + floorToTarget.magnitude*floorToTarget.magnitude - 2 * floorToTarget.magnitude * floorSide * Mathf.Cos(camfloorToTargetAngle* Mathf.Deg2Rad) );
-
-			if (camToLookAt.magnitude > fovDist)
-				return camToLookAt.magnitude;
-
-
-			return fovDist;
-
-
-		}
+		
 
 		private Vector3 SmoothLookingAt(Vector3 smoothLookAt, Vector3 lockOnLookAt, float lookSpeed){
 			if (!CompareVectors(smoothLookAt, lockOnLookAt, 1f))
@@ -2040,36 +1655,48 @@ namespace PlatformerHomework{
 
 			for (int i = 0; i < hits.Length; i++){
 
-				Renderer rend = hits[i].transform.GetComponent<Renderer>();
-				if(rend){
+                Renderer[] childRenderers = hits[i].collider.gameObject.GetComponentsInChildren<Renderer>();
 
-					float alpha = 0f;
+                Renderer parentRend = hits[i].transform.GetComponent<Renderer>();
+                for (int j = 0; j <= childRenderers.Length; j++)
+                {
+                    Renderer rend;
+                    if (j == childRenderers.Length)
+                        rend = parentRend;
+                    else
+                        rend = childRenderers[j];
 
-					if (!alwaysFullyTransparent && hits[i].distance > fullTransparencyDistance)
-						alpha = Mathf.Clamp01((hits[i].distance - fullTransparencyDistance)/ (direction.magnitude - fullTransparencyDistance));
+                    if (rend)
+                    {
+                        float alpha = 0f;
+
+                        if (!alwaysFullyTransparent && hits[i].distance > fullTransparencyDistance)
+                            alpha = Mathf.Clamp01((hits[i].distance - fullTransparencyDistance) / (direction.magnitude - fullTransparencyDistance));
 
 
 
 
-					// get or create the script FadeObject on the object.
-					FadeObject fo = rend.GetComponent<FadeObject>();
-					if(fo == null)
-						fo = rend.gameObject.AddComponent<FadeObject>();
+                        // get or create the script FadeObject on the object.
+                        FadeObject fo = rend.GetComponent<FadeObject>();
+                        if (fo == null)
+                            fo = rend.gameObject.AddComponent<FadeObject>();
 
-					fo.FadeOutSpeed = fadeOutSpeed;
-					fo.FadeInSpeed = fadeInSpeed;
-					fo.FadeShader = fadeShader;
-					//Set the transparencym script handles fading
-					fo.SetTransparency(alpha);
+                        fo.FadeOutSpeed = fadeOutSpeed;
+                        fo.FadeInSpeed = fadeInSpeed;
+                        fo.FadeShader = fadeShader;
+                        //Set the transparencym script handles fading
+                        fo.SetTransparency(alpha);
 
-					if (debugOn && debugCamFade)
-					{
-						Debug.Log("hits[i].distance " + hits[i].distance);
-						Debug.Log("alpha " + alpha);
-						fo.DebugOn = true;
-					}
+                        if (debugOn && debugCamFade)
+                        {
+                            Debug.Log("hits[i].distance " + hits[i].distance);
+                            Debug.Log("alpha " + alpha);
+                            fo.DebugOn = true;
+                        }
+                    }
 
-				}
+                    
+                }
 			}
 		}
 

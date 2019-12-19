@@ -98,6 +98,7 @@ public class Player : MonoBehaviour
     //Dictionary<SkinnedMeshRenderer, Mesh> skinnedPlayerMeshes;
 
     Vector3 camLookOffsetStart;
+    bool lookOffsetXLocked = false;
     private struct RespawnPoint
     {
         public Vector3 position;
@@ -159,7 +160,8 @@ public class Player : MonoBehaviour
 
         // movement input
         //float h = Input.GetAxis("Horizontal");
-        float v = Input.GetAxis("Horizontal");
+        float v =Input.GetAxis("Horizontal") + Input.GetAxis("Vertical");
+        v = Mathf.Clamp(v, -1f, 1f);
         float h = 0;
 
         if (disableInput)
@@ -324,9 +326,13 @@ public class Player : MonoBehaviour
                 cc.Move(moveDirection);
 
                 //keeps the lookoffset at the starting lane!
-                //Vector3 look = camScript.Lookoffset;
-                //look.x -= moveDirection.x;
-                //camScript.Lookoffset = look;
+                if (lookOffsetXLocked)
+                {
+                    Vector3 look = camScript.Lookoffset;
+                    look.x -= moveDirection.x;
+                    camScript.Lookoffset = look;
+                }
+                
             }
 
 
@@ -340,7 +346,7 @@ public class Player : MonoBehaviour
         if (!switchDirection)
             return;
 
-        Vector3 lookOffsetTraget = camLookOffsetStart;
+        Vector3 lookOffsetTraget = camScript.Lookoffset;
 
         if (v > 0)
         {
@@ -732,13 +738,14 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void MoveToLane(Vector3 destination)
+    public void MoveToLane(Vector3 destination, MoveLanes mlScript)
     {
         moveDestination = destination;
         disableInput = true;
         damageInvunerability = true;
         movingLanes = true;
         forceMoveSpeed = runSpeed;
+        lookOffsetXLocked = mlScript.lockCameraDistance;
 
     }
 

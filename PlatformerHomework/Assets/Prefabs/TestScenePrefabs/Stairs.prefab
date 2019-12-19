@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 81260325}
   - component: {fileID: 81260326}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24,12 +24,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 81260324}
-  m_LocalRotation: {x: -0.23344536, y: 0, z: 0, w: 0.97236997}
+  m_LocalRotation: {x: -0.23344532, y: -0, z: -0, w: 0.97236997}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1732484947427518761}
   m_Father: {fileID: 1598914426697975869}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -27, y: 0, z: 0}
 --- !u!65 &81260326
 BoxCollider:
@@ -42,8 +43,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 4, y: 0.1, z: 4.87}
-  m_Center: {x: 0, y: -0.01, z: 2}
+  m_Size: {x: 4, y: 0.54, z: 4.87}
+  m_Center: {x: 0, y: -0.15, z: 2}
 --- !u!1 &3337268725940624186
 GameObject:
   m_ObjectHideFlags: 0
@@ -55,7 +56,7 @@ GameObject:
   - component: {fileID: 1732484947427518761}
   - component: {fileID: 7300338700258366239}
   - component: {fileID: 3921661336645545958}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69,11 +70,11 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3337268725940624186}
-  m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 50, y: 100, z: 50}
+  m_LocalRotation: {x: -0.36946234, y: 0.36946234, z: 0.6029076, w: 0.6029076}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 50.000053, y: 100.00012, z: 50.00005}
   m_Children: []
-  m_Father: {fileID: 1598914426697975869}
+  m_Father: {fileID: 81260325}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 90, z: 0}
 --- !u!33 &7300338700258366239
@@ -131,7 +132,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1598914426697975869}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Stairs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -146,10 +147,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6936941016115465394}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 2, z: 112}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1732484947427518761}
   - {fileID: 81260325}
   m_Father: {fileID: 0}
   m_RootOrder: 0

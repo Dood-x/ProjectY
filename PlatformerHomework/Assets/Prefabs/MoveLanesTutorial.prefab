@@ -312,6 +312,7 @@ MonoBehaviour:
   messageOut: {fileID: 6175262746741279451}
   lane1: {fileID: 6175262748629627986}
   lane2: {fileID: 6175262747099975600}
+  lockCameraDistance: 1
 --- !u!1 &6175262747819243808
 GameObject:
   m_ObjectHideFlags: 0
