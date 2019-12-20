@@ -7067,11 +7067,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pillar.001 (87)
       objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 2202462e299a75543bdfe242cead1dbd,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2202462e299a75543bdfe242cead1dbd,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7090,22 +7085,22 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 2202462e299a75543bdfe242cead1dbd,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.35342994
+      value: -0.49991274
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2202462e299a75543bdfe242cead1dbd,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.61237246
+      value: -0.49991274
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2202462e299a75543bdfe242cead1dbd,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.6123724
+      value: -0.50008726
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2202462e299a75543bdfe242cead1dbd,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.3536769
+      value: 0.50008726
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2202462e299a75543bdfe242cead1dbd,
         type: 3}
@@ -7120,12 +7115,12 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 2202462e299a75543bdfe242cead1dbd,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -45
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2202462e299a75543bdfe242cead1dbd,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: -90
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2202462e299a75543bdfe242cead1dbd,
         type: 3}
@@ -7166,11 +7161,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Pillar.001 (80)
-      objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 2202462e299a75543bdfe242cead1dbd,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2202462e299a75543bdfe242cead1dbd,
         type: 3}
@@ -7267,11 +7257,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pillar.001 (101)
       objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 2202462e299a75543bdfe242cead1dbd,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2202462e299a75543bdfe242cead1dbd,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7366,11 +7351,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Pillar.001 (91)
-      objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 2202462e299a75543bdfe242cead1dbd,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2202462e299a75543bdfe242cead1dbd,
         type: 3}
@@ -7467,11 +7447,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PillarTop.001 (7)
       objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: e009bd0d7c25a25419a71c11dc487186,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: e009bd0d7c25a25419a71c11dc487186,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7566,11 +7541,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Pillar.001 (76)
-      objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 2202462e299a75543bdfe242cead1dbd,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2202462e299a75543bdfe242cead1dbd,
         type: 3}
@@ -7667,11 +7637,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PillarTop.001 (6)
       objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: e009bd0d7c25a25419a71c11dc487186,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: e009bd0d7c25a25419a71c11dc487186,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7766,11 +7731,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Pillar.001 (83)
-      objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 2202462e299a75543bdfe242cead1dbd,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2202462e299a75543bdfe242cead1dbd,
         type: 3}
@@ -7867,11 +7827,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pillar.001 (96)
       objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 2202462e299a75543bdfe242cead1dbd,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2202462e299a75543bdfe242cead1dbd,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7966,11 +7921,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Pillar.001 (84)
-      objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 2202462e299a75543bdfe242cead1dbd,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2202462e299a75543bdfe242cead1dbd,
         type: 3}
@@ -8067,11 +8017,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pillar.001 (82)
       objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 2202462e299a75543bdfe242cead1dbd,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2202462e299a75543bdfe242cead1dbd,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8166,11 +8111,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Pillar.001 (79)
-      objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 2202462e299a75543bdfe242cead1dbd,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2202462e299a75543bdfe242cead1dbd,
         type: 3}
@@ -8267,11 +8207,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pillar.001 (3)
       objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 2202462e299a75543bdfe242cead1dbd,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2202462e299a75543bdfe242cead1dbd,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8290,22 +8225,22 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 2202462e299a75543bdfe242cead1dbd,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.35342994
+      value: -0.49991274
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2202462e299a75543bdfe242cead1dbd,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.61237246
+      value: -0.49991274
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2202462e299a75543bdfe242cead1dbd,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.6123724
+      value: -0.50008726
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2202462e299a75543bdfe242cead1dbd,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.3536769
+      value: 0.50008726
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2202462e299a75543bdfe242cead1dbd,
         type: 3}
@@ -8320,12 +8255,12 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 2202462e299a75543bdfe242cead1dbd,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -45
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2202462e299a75543bdfe242cead1dbd,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: -90
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2202462e299a75543bdfe242cead1dbd,
         type: 3}
@@ -8366,11 +8301,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Pillar.001 (14)
-      objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 2202462e299a75543bdfe242cead1dbd,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2202462e299a75543bdfe242cead1dbd,
         type: 3}
@@ -8467,11 +8397,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pillar.001 (90)
       objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 2202462e299a75543bdfe242cead1dbd,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2202462e299a75543bdfe242cead1dbd,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8566,11 +8491,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PillarTop.001 (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: e009bd0d7c25a25419a71c11dc487186,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: e009bd0d7c25a25419a71c11dc487186,
         type: 3}
@@ -8667,11 +8587,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pillar.001 (103)
       objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 2202462e299a75543bdfe242cead1dbd,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2202462e299a75543bdfe242cead1dbd,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8690,22 +8605,22 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 2202462e299a75543bdfe242cead1dbd,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.35342994
+      value: -0.49991274
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2202462e299a75543bdfe242cead1dbd,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.61237246
+      value: -0.49991274
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2202462e299a75543bdfe242cead1dbd,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.6123724
+      value: -0.50008726
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2202462e299a75543bdfe242cead1dbd,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.3536769
+      value: 0.50008726
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2202462e299a75543bdfe242cead1dbd,
         type: 3}
@@ -8720,12 +8635,12 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 2202462e299a75543bdfe242cead1dbd,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -45
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2202462e299a75543bdfe242cead1dbd,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: -90
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2202462e299a75543bdfe242cead1dbd,
         type: 3}
@@ -8766,11 +8681,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Pillar.001 (98)
-      objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 2202462e299a75543bdfe242cead1dbd,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2202462e299a75543bdfe242cead1dbd,
         type: 3}
@@ -8866,11 +8776,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Pillar.001 (105)
-      objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 2202462e299a75543bdfe242cead1dbd,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2202462e299a75543bdfe242cead1dbd,
         type: 3}
@@ -9057,11 +8962,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pillar.001 (94)
       objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 2202462e299a75543bdfe242cead1dbd,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2202462e299a75543bdfe242cead1dbd,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9156,11 +9056,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Pillar.001 (99)
-      objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 2202462e299a75543bdfe242cead1dbd,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2202462e299a75543bdfe242cead1dbd,
         type: 3}
@@ -9257,11 +9152,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pillar.001 (88)
       objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 2202462e299a75543bdfe242cead1dbd,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2202462e299a75543bdfe242cead1dbd,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9356,11 +9246,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Pillar.001 (95)
-      objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 2202462e299a75543bdfe242cead1dbd,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2202462e299a75543bdfe242cead1dbd,
         type: 3}
@@ -9457,11 +9342,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pillar.001 (86)
       objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 2202462e299a75543bdfe242cead1dbd,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2202462e299a75543bdfe242cead1dbd,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9556,11 +9436,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Pillar.001 (81)
-      objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 2202462e299a75543bdfe242cead1dbd,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2202462e299a75543bdfe242cead1dbd,
         type: 3}
@@ -9657,11 +9532,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pillar.001 (97)
       objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 2202462e299a75543bdfe242cead1dbd,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2202462e299a75543bdfe242cead1dbd,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9757,11 +9627,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pillar.001 (78)
       objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 2202462e299a75543bdfe242cead1dbd,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2202462e299a75543bdfe242cead1dbd,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9856,11 +9721,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Pillar.001 (13)
-      objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 2202462e299a75543bdfe242cead1dbd,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2202462e299a75543bdfe242cead1dbd,
         type: 3}
@@ -10047,11 +9907,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PillarTop.001 (3)
       objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: e009bd0d7c25a25419a71c11dc487186,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: e009bd0d7c25a25419a71c11dc487186,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -10209,13 +10064,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5199708938302454543, guid: e64ce6f28a16b544d984039ff69c0589,
         type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.0066666696
+      propertyPath: m_LocalScale.y
+      value: 0.0066666664
       objectReference: {fileID: 0}
     - target: {fileID: 5199708938302454543, guid: e64ce6f28a16b544d984039ff69c0589,
         type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.0066666664
+      propertyPath: m_LocalScale.z
+      value: 0.0066666696
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e64ce6f28a16b544d984039ff69c0589, type: 3}
@@ -10236,11 +10091,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Floor (24)
-      objectReference: {fileID: 0}
-    - target: {fileID: 744663106154745740, guid: c2a6396aa0dd3254d9e6e37ee555da58,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 744663106154745739, guid: c2a6396aa0dd3254d9e6e37ee555da58,
         type: 3}
@@ -10337,11 +10187,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Floor (25)
       objectReference: {fileID: 0}
-    - target: {fileID: 744663106154745740, guid: c2a6396aa0dd3254d9e6e37ee555da58,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 744663106154745739, guid: c2a6396aa0dd3254d9e6e37ee555da58,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -10437,11 +10282,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pillar.001 (106)
       objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 2202462e299a75543bdfe242cead1dbd,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2202462e299a75543bdfe242cead1dbd,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -10536,11 +10376,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Pillar.001 (107)
-      objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 2202462e299a75543bdfe242cead1dbd,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2202462e299a75543bdfe242cead1dbd,
         type: 3}
@@ -10727,11 +10562,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pillar.001 (4)
       objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 2202462e299a75543bdfe242cead1dbd,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2202462e299a75543bdfe242cead1dbd,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -10827,11 +10657,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Floor (26)
       objectReference: {fileID: 0}
-    - target: {fileID: 744663106154745740, guid: c2a6396aa0dd3254d9e6e37ee555da58,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 744663106154745739, guid: c2a6396aa0dd3254d9e6e37ee555da58,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -10926,11 +10751,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Floor (29)
-      objectReference: {fileID: 0}
-    - target: {fileID: 744663106154745740, guid: c2a6396aa0dd3254d9e6e37ee555da58,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 744663106154745739, guid: c2a6396aa0dd3254d9e6e37ee555da58,
         type: 3}
@@ -11207,11 +11027,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pillar.001 (100)
       objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 2202462e299a75543bdfe242cead1dbd,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2202462e299a75543bdfe242cead1dbd,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -11306,11 +11121,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Pillar.001 (77)
-      objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 2202462e299a75543bdfe242cead1dbd,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2202462e299a75543bdfe242cead1dbd,
         type: 3}
@@ -11469,13 +11279,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5199708938302454543, guid: e64ce6f28a16b544d984039ff69c0589,
         type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.0066666696
+      propertyPath: m_LocalScale.y
+      value: 0.0066666664
       objectReference: {fileID: 0}
     - target: {fileID: 5199708938302454543, guid: e64ce6f28a16b544d984039ff69c0589,
         type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.0066666664
+      propertyPath: m_LocalScale.z
+      value: 0.0066666696
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e64ce6f28a16b544d984039ff69c0589, type: 3}
@@ -11496,11 +11306,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Pillar.001 (15)
-      objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 2202462e299a75543bdfe242cead1dbd,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2202462e299a75543bdfe242cead1dbd,
         type: 3}
@@ -11597,11 +11402,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pillar.001 (93)
       objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 2202462e299a75543bdfe242cead1dbd,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2202462e299a75543bdfe242cead1dbd,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -11697,11 +11497,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PillarTop.001 (2)
       objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: e009bd0d7c25a25419a71c11dc487186,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: e009bd0d7c25a25419a71c11dc487186,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -11720,22 +11515,22 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: e009bd0d7c25a25419a71c11dc487186,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.35342994
+      value: -0.49991274
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: e009bd0d7c25a25419a71c11dc487186,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.61237246
+      value: -0.49991274
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: e009bd0d7c25a25419a71c11dc487186,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.6123724
+      value: -0.50008726
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: e009bd0d7c25a25419a71c11dc487186,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.3536769
+      value: 0.50008726
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: e009bd0d7c25a25419a71c11dc487186,
         type: 3}
@@ -11750,12 +11545,12 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: e009bd0d7c25a25419a71c11dc487186,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -45
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: e009bd0d7c25a25419a71c11dc487186,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: -90
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: e009bd0d7c25a25419a71c11dc487186,
         type: 3}
@@ -11886,11 +11681,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Pillar.001 (12)
-      objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 2202462e299a75543bdfe242cead1dbd,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2202462e299a75543bdfe242cead1dbd,
         type: 3}
