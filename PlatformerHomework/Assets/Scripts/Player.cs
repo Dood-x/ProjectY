@@ -31,8 +31,16 @@ public class Player : MonoBehaviour
     public int maxJumpAmount = 2;
 
     [Header("Sounds")]
-    public AudioSource audios;
+    AudioSource audioSource;
     public AudioClip leapSound;
+    public AudioClip step1Sound;
+    public AudioClip step2Sound;
+    public AudioClip step3Sound;
+    public AudioClip step4Sound;
+    public AudioClip landSound;
+    public AudioClip gotHitSound;
+    public AudioClip collectedCrystalSound;
+    public AudioClip respawnedSound;
 
     bool disableInput;
     public bool DisableInput
@@ -140,7 +148,7 @@ public class Player : MonoBehaviour
         healthSlider.value = health / maxHealth;
         WriteCrystals();
         syphonCollider = GetComponentInChildren<SphereCollider>();
-        audios = GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
 
         camLookOffsetStart = camScript.Lookoffset;
 
@@ -161,11 +169,10 @@ public class Player : MonoBehaviour
         }
 
         //CheckMovingPlatform();
-
-
+        
+        
         // movement input
-        //float h = Input.GetAxis("Horizontal");
-        float v =Input.GetAxis("Horizontal") + Input.GetAxis("Vertical");
+        float v = Input.GetAxis("Horizontal") + Input.GetAxis("Vertical");
         v = Mathf.Clamp(v, -1f, 1f);
         float h = 0;
 
@@ -378,8 +385,52 @@ public class Player : MonoBehaviour
 
     public void PlayLeapSound()
     {
-        audios.clip = leapSound;
-        audios.Play();
+        audioSource.PlayOneShot(leapSound); 
+    }
+    public void PlayStepSound()
+    {
+        if (!cc.isGrounded)
+            return;
+
+        int rand = Random.Range(0, 3);
+        switch (rand)
+        {
+            case 0:
+                audioSource.PlayOneShot(step1Sound);
+                break;
+            case 1:
+                audioSource.PlayOneShot(step2Sound);
+                break;
+            case 2:
+                audioSource.PlayOneShot(step3Sound);
+                break;
+            case 3:
+                audioSource.PlayOneShot(step4Sound);
+                break;
+        }
+
+    }
+
+    public void PlayLandSound()
+    {
+        audioSource.PlayOneShot(landSound);
+
+    }
+
+    public void PlayGotHitSound()
+    {
+        audioSource.PlayOneShot(gotHitSound);
+
+    }
+
+    public void PlayCollectedCrystalSound()
+    {
+        audioSource.PlayOneShot(collectedCrystalSound);
+    }
+
+    public void PlayRespawnedSound()
+    {
+        audioSource.PlayOneShot(respawnedSound);
     }
 
 
@@ -435,6 +486,7 @@ public class Player : MonoBehaviour
     public void Respawn()
     {
         ClearState();
+        PlayRespawnedSound();
         //Physics.IgnoreLayerCollision(8, 9, true);
         if (health > 0)
         {
@@ -470,6 +522,7 @@ public class Player : MonoBehaviour
         {
             crystals++;
             WriteCrystals();
+            PlayCollectedCrystalSound();
             Destroy(other.gameObject);
         }
     }

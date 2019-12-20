@@ -8,11 +8,13 @@ public class ItemBobing : MonoBehaviour
     public float bobbingTime = 1f;
     public Vector3 spinningSpeed;
 
+    AudioSource crystalSource;
 
     Vector3 startPosition;
     bool goDown;
     Vector3 smoothSpeed;
     float startTime;
+
 
     Syphon syphonScript;
 

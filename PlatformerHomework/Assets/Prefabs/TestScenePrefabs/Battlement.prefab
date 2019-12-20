@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5167524294612545481}
   - component: {fileID: 1480051076636807984}
   - component: {fileID: 1895769154}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1921974668179612660}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Battlement
   m_TagString: Untagged
   m_Icon: {fileID: 0}

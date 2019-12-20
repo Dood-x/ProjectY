@@ -12,6 +12,13 @@ public class Lever : MonoBehaviour
     bool activated = false;
     Animator leverAnim;
     Animator portcullisAnim;
+
+    AudioSource leverSource;
+    AudioSource portcullisSource;
+
+    public AudioClip gearsSound;
+    public AudioClip portcullisOpenSound;
+    public AudioClip leverPushSound;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +38,8 @@ public class Lever : MonoBehaviour
         if(portcullisAnim)
             portcullisAnim.speed = 0;
 
+        leverSource = GetComponent<AudioSource>();
+        portcullisSource = portcullis.GetComponent<AudioSource>();
 
     }
 
@@ -88,5 +97,21 @@ public class Lever : MonoBehaviour
         if (portcullisAnim)
             portcullisAnim.speed = 1;
 
+        PlayPortcullisOpenSould();
+
+    }
+
+    public void PlayGearSound()
+    {
+        leverSource.PlayOneShot(gearsSound);
+    }
+
+    public void PlayPortcullisOpenSould()
+    {
+        portcullisSource.PlayOneShot(portcullisOpenSound);
+    }
+    public void PlayLeverPushSound()
+    {
+        portcullisSource.PlayOneShot(leverPushSound);
     }
 }
