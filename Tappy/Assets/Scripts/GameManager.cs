@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,6 +9,7 @@ public class GameManager : MonoBehaviour
     public List<Sprite> mainMenuIcons;
     public static GameManager Instance;
     public SaveManager saveManager;
+    public SoundManager soundManager;
     public ParticleSystem buttonPressedFX;
     public GameObject buttonHolder;
     public Button mainButton;
@@ -40,6 +42,16 @@ public class GameManager : MonoBehaviour
             textCount.fontSize = 56;
             StartCoroutine(ScaleCount());
         }
+    }
+
+    internal void UnMuteSound()
+    {
+        soundManager.audioSource.mute = false;
+    }
+
+    internal void MuteSound()
+    {
+        soundManager.audioSource.mute = true;
     }
 
     public IEnumerator ScaleCount()
