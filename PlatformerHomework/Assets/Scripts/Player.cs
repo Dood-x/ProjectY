@@ -30,6 +30,10 @@ public class Player : MonoBehaviour
     public float maxHealth = 100f;
     public int maxJumpAmount = 2;
 
+    [Header("Sounds")]
+    public AudioSource audios;
+    public AudioClip leapSound;
+
     bool disableInput;
     public bool DisableInput
     {
@@ -136,6 +140,7 @@ public class Player : MonoBehaviour
         healthSlider.value = health / maxHealth;
         WriteCrystals();
         syphonCollider = GetComponentInChildren<SphereCollider>();
+        audios = GetComponent<AudioSource>();
 
         camLookOffsetStart = camScript.Lookoffset;
 
@@ -369,8 +374,15 @@ public class Player : MonoBehaviour
         jumpAmount++;
         cc.Move(launchSpeed * Time.deltaTime);
         animator.SetBool("Leap", false);
-
     }
+
+    public void PlayLeapSound()
+    {
+        audios.clip = leapSound;
+        audios.Play();
+    }
+
+
     public void IdleOver()
     {
         idleCounter++;
@@ -615,6 +627,8 @@ public class Player : MonoBehaviour
 
     IEnumerator GotHit(Vector3 impactPosition)
     {
+        SoundManager.Instance.PlayGotHit();
+
         LaunchAwayFrom(impactPosition);
 
         Physics.IgnoreLayerCollision(8, 9, true);
