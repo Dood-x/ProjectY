@@ -82,6 +82,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   portcullis: {fileID: 0}
+  gearsSound: {fileID: 8300000, guid: 1cf0c6bd08d1fa14ebbee268fb82a29c, type: 3}
+  portcullisOpenSound: {fileID: 8300000, guid: 2ed0505e55970344dbd9b63d1f14c541, type: 3}
+  leverPushSound: {fileID: 8300000, guid: 2ac0d27392ee8ca488fdc2b99bdd4d51, type: 3}
 --- !u!1 &2806096905260473767
 GameObject:
   m_ObjectHideFlags: 0

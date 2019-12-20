@@ -32,11 +32,7 @@ public class MoveLanes : MonoBehaviour
         {
             activated = Input.GetKeyDown(laneIndex == 0 ? KeyCode.W : KeyCode.S);
 
-            dodaj zbaninu jarugu na mapu kad ga ne bude bilo
-                jher je p[resmijesan ali bana je i glup uz sve to, tak da ne bude smijesno, 
-    ]
-            zbaninma jaruga koja paruga
-            marin je legenda jedva ga cekam vidjet kad dodemo povnosno
+           
             float dist1 = (lane1.position - playerScript.transform.position).sqrMagnitude;
             float dist2 = (lane2.position - playerScript.transform.position).sqrMagnitude;
 
