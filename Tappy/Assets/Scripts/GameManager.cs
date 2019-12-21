@@ -11,6 +11,11 @@ public class GameManager : MonoBehaviour
     public SaveManager saveManager;
     public SoundManager soundManager;
     public ParticleSystem buttonPressedFX;
+    public ParticleSystem buttonPressed15FX;
+    public ParticleSystem buttonPressed50FX;
+    public ParticleSystem buttonPressed100FX;
+    public ParticleSystem buttonPressed1000FX;
+
     public GameObject buttonHolder;
     public Button mainButton;
     public Button menuButton;
@@ -34,14 +39,65 @@ public class GameManager : MonoBehaviour
     {
         if (!menuActive)
         {
-            buttonPressedFX.Play();
             count += amount;
+
+            if (count % 1000 == 0)
+            {
+                StartCoroutine(Play1000Particles());
+            }
+            else if (count % 500 == 0)
+            {
+                StartCoroutine(Play500Particles());
+            }
+            else if (count % 100 == 0)
+            {
+                buttonPressed100FX.Play();
+            }
+            else if (count % 50 == 0)
+            {
+                buttonPressed50FX.Play();
+            }
+            else if (count % 15 == 0)
+            {
+                buttonPressed15FX.Play();
+            }
+            else
+            {
+                buttonPressedFX.Play();
+            }
+
             saveManager.state.count = count;
             textCount.text = count.ToString();
             saveManager.Save();
             textCount.fontSize = 56;
             StartCoroutine(ScaleCount());
         }
+    }
+
+    public IEnumerator Play500Particles()
+    {
+        buttonPressed1000FX.Play();
+        yield return new WaitForSeconds(.9f);
+        buttonPressed1000FX.Play();
+        yield return new WaitForSeconds(.7f);
+        buttonPressed1000FX.Play();
+        yield return new WaitForSeconds(.13f);
+        buttonPressed1000FX.Play();
+    }
+
+    public IEnumerator Play1000Particles()
+    {
+        buttonPressed1000FX.Play();
+        yield return new WaitForSeconds(.9f);
+        buttonPressed1000FX.Play();
+        yield return new WaitForSeconds(.7f);
+        buttonPressed1000FX.Play();
+        yield return new WaitForSeconds(.13f);
+        buttonPressed1000FX.Play();
+        yield return new WaitForSeconds(.13f);
+        buttonPressed1000FX.Play();
+        yield return new WaitForSeconds(.13f);
+        buttonPressed1000FX.Play();
     }
 
     internal void UnMuteSound()
