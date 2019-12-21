@@ -709,7 +709,7 @@ public class Player : MonoBehaviour
 
     IEnumerator GotHit(Vector3 impactPosition)
     {
-        SoundManager.Instance.PlayGotHit();
+        //SoundManager.Instance.PlayGotHit();
 
         LaunchAwayFrom(impactPosition);
 
