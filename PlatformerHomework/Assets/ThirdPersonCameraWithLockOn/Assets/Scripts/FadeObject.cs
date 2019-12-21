@@ -57,10 +57,10 @@ namespace PlatformerHomework
 
 		private float targetTransparency;
 
-		private float originalTransparency;
+		private float[] originalTransparency;
 
-		private Material originalMaterial;
-		private Shader originalShader;
+		private Material[] originalMaterial;
+		private Shader[] originalShader;
 		//private BlendMode originalRenderMode;
 
 		private bool fadeIn = true;
@@ -72,19 +72,31 @@ namespace PlatformerHomework
 			set { debugOn = value; }
 		}
 
+        private bool[] fadeOutComplete;
+
 		// Use this for initialization
 		void Start () {
 			//renderer = this.GetComponent<Renderer> ();
 
-			originalMaterial = GetComponent<Renderer>().sharedMaterial;
-			Material mat = GetComponent<Renderer>().material;
-			originalTransparency = mat.color.a;
+			originalMaterial = GetComponent<Renderer>().sharedMaterials;
+			Material[] mat = GetComponent<Renderer>().materials;
 
-			if(fadeShader)
-			{
-				originalShader = mat.shader;
-				mat.shader = fadeShader;
-			}
+            fadeOutComplete = new bool[mat.Length];
+
+            originalTransparency = new float[mat.Length];
+            originalShader = new Shader[mat.Length];
+
+            for (int i = 0; i < mat.Length; i++)
+            {
+			    originalTransparency[i] = mat[i].color.a;
+
+                if (fadeShader)
+                {
+                    originalShader[i] = mat[i].shader;
+                    mat[i].shader = fadeShader;
+                }
+            }
+
 			
 			// mat.SetFloat("_Mode", 2);
 			// mat.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
@@ -117,64 +129,92 @@ namespace PlatformerHomework
 					opacity = targetTransparency;
 					fadeIn = false;
 				}
-				Color C = GetComponent<Renderer>().material.color;
-				C.a = opacity;
-				GetComponent<Renderer>().material.color = C;
+
+                Material[] mats = GetComponent<Renderer>().materials;
+
+                for (int i = 0; i < mats.Length; i++)
+                {
+                    Color C = mats[i].color;
+                    C.a = opacity;
+                    GetComponent<Renderer>().materials[i].color = C;
+                }
+				
 			}
 			
 			//FadeOut
 			else
 			{
-				if (opacity < originalTransparency)
-				{
-					Color C = GetComponent<Renderer>().material.color;
-					C.a = opacity;
-					GetComponent<Renderer>().material.color = C;
-				}
-				else
-				{
-					Material mat = GetComponent<Renderer>().material;
+                Material[] mats = GetComponent<Renderer>().materials;
+                for (int i = 0; i < mats.Length; i++)
+                {
+                    if (opacity < originalTransparency[i])
+                    {
+                        Color C = mats[i].color;
+                        C.a = opacity;
+                        GetComponent<Renderer>().materials[i].color = C;
+                    }
+                    else if(!fadeOutComplete[i])
+                    {
+                        Material mat = GetComponent<Renderer>().materials[i];
 
-					Color c = GetComponent<Renderer>().material.color;
-					c.a = originalTransparency;
-					
+                        Color c = GetComponent<Renderer>().materials[i].color;
+                        c.a = originalTransparency[i];
 
-					if(fadeShader)
-					{
-						mat.shader = originalShader;
-						mat.SetColor(originalShader.name, c);
-						//mat.EnableKeyword("_ALPHABLEND_ON");
-						GetComponent<Renderer>().material = originalMaterial;
-					}
-					else
-					{
-						mat.color = c;
-					}
 
-					
+                        if (fadeShader)
+                        {
+                            mat.shader = originalShader[i];
+                            mat.SetColor(originalShader[i].name, c);
+                            //mat.EnableKeyword("_ALPHABLEND_ON");
+                            GetComponent<Renderer>().materials[i] = originalMaterial[i];
 
-					// mat.SetFloat("_Mode", 0);
-					// mat.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
-					// mat.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.Zero);
-					// mat.SetInt("_ZWrite", 1);
-					// mat.DisableKeyword("_ALPHATEST_ON");
-					// mat.DisableKeyword("_ALPHABLEND_ON");
-					// mat.DisableKeyword("_ALPHAPREMULTIPLY_ON");
-					// mat.renderQueue = 2000;
+                            fadeOutComplete[i] = true;
+                        }
+                        else
+                        {
+                            mat.color = c;
+                        }
 
-					// And remove this script
-					Destroy(this);
-				}
 
-				if(fadeOutSpeed == 0)
-				{
-					opacity = originalTransparency;
-				}
-				else
-				{
-					opacity += ((1.0f-targetTransparency)*Time.deltaTime) * fadeOutSpeed;
-				}
-			}
+
+                        // mat.SetFloat("_Mode", 0);
+                        // mat.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
+                        // mat.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.Zero);
+                        // mat.SetInt("_ZWrite", 1);
+                        // mat.DisableKeyword("_ALPHATEST_ON");
+                        // mat.DisableKeyword("_ALPHABLEND_ON");
+                        // mat.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+                        // mat.renderQueue = 2000;
+
+                        
+                    }
+
+                    if (fadeOutSpeed == 0)
+                    {
+                        opacity = originalTransparency[i];
+                    }
+                    else
+                    {
+                        opacity += ((1.0f - targetTransparency) * Time.deltaTime) * fadeOutSpeed;
+                    }
+
+
+                   
+
+                }
+
+                // check if everyhting returned to normal
+                bool allClear = true;
+                for (int i = 0; i < mats.Length; i++)
+                {
+                    if (!fadeOutComplete[i])
+                        allClear = false;
+                }
+                // And remove this script
+                if(allClear)
+                    Destroy(this);
+
+            }
 
 
 			if(debugOn)
