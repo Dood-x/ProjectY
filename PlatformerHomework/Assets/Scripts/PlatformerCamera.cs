@@ -360,15 +360,6 @@ namespace PlatformerHomework{
 		}
 
 
-		[SerializeField]
-		[Tooltip("When colliding the camera make the camera look at the character (still takes lookOffset Y value)")]
-        private bool changeLookPositionWhenColliding = false;
-        public bool ChangeLookPositionWhenColliding
-        {
-            get { return changeLookPositionWhenColliding; }
-            set { changeLookPositionWhenColliding = value; }
-        }
-
         [SerializeField]
 		[Tooltip("Will the camera lerp to its default angle of viewing When the player lets go of the camera analog? (Doesn't work with mouse controls")]
 		private bool lerpCameraToDefault = true;
@@ -452,7 +443,7 @@ namespace PlatformerHomework{
 		
 		[SerializeField]
 		[Tooltip("Offset the camera look at target when in free cam mode, the camera will look at relative to the player origin, with this u can set the camera look at target a point relative to player characetr origin")]
-		public Vector3 lookoffset = new Vector3(0,2.5f,0);
+		private Vector3 lookoffset = new Vector3(0,2.5f,0);
 		public Vector3 Lookoffset
 		{
 			get { return lookoffset; }
@@ -1336,8 +1327,7 @@ namespace PlatformerHomework{
                     lookDir.Normalize();
 
 
-                    lookAt = MoveCamera(x, y, distance, lookAt, lockCameraYDuringCollision);
-                    Debug.Log(lookAt);
+                    MoveCamera(x, y, distance, lookAt, lockCameraYDuringCollision);
 
                     smoothLookAt = SmoothLookingAt(smoothLookAt, lookAt, lookSpeed);
 
@@ -1370,7 +1360,7 @@ namespace PlatformerHomework{
 
 		}
 
-		private Vector3 MoveCamera(float x, float y, float distance, Vector3 lookAt, bool collisionYlock = false){
+		private void MoveCamera(float x, float y, float distance, Vector3 lookAt, bool collisionYlock = false){
 
 			//xprev = x;
 			//yprev = y;
@@ -1387,37 +1377,8 @@ namespace PlatformerHomework{
 
             bool hitSomething = false;
 
-            if (changeLookPositionWhenColliding)
-            {
-                Vector3 newLookAtPosition = position;
-
-                hitSomething = BoxCastWallCollision(characterOffset, ref newLookAtPosition, collisionYlock);
-
-                if (hitSomething)
-                {
-                    // are we limiting the y or the z coordinate
-                    //collisionPoint relaitve to character
-                    Vector3 relativeCollision = newLookAtPosition - characterOffset;
-                    if (Mathf.Abs(lookoffset.x) > Math.Abs(relativeCollision.x))
-                        lookAt.x = newLookAtPosition.x;
-                    if (Mathf.Abs(lookoffset.z) > Math.Abs(relativeCollision.z))
-                        lookAt.z = newLookAtPosition.z;
-
-                    //lookAt = characterOffset;
-                    position = rotation * negDistance + lookAt;
-                    targetPosition = position;
-                    hitSomething = BoxCastWallCollision(characterOffset, ref targetPosition, collisionYlock);
-
-                }
-            }
-            else
-            {
-                hitSomething = BoxCastWallCollision(characterOffset, ref targetPosition, collisionYlock);
-
-            }
-
-
-
+            
+            hitSomething = BoxCastWallCollision(characterOffset, ref targetPosition, collisionYlock);
 
             if (collisionYlock && hitSomething)
 			{
@@ -1447,9 +1408,10 @@ namespace PlatformerHomework{
 			// xprev = CalculateAngleByPhaseOfX(xprev, xnew);
 
 			this.transform.position = newPosition;
-            return lookAt;
 
 		}
+
+        
 
 
 		private int CalculatePhaseOfAngle(float angle, float shift = 180.0f)

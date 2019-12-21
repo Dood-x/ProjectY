@@ -76,6 +76,8 @@ public class Player : MonoBehaviour
     [Header("Camera")]
     public bool switchDirection = true;
     public float switchDirectionLerp = 2f;
+    public bool collideLookAt = true;
+    public LayerMask lookAtCollisionLayers;
 
     bool respawning;
     //add values to this in order to launch the player in a direction
@@ -240,6 +242,7 @@ public class Player : MonoBehaviour
 
         //switches the camera look offset depending on whether we are going forward or back
         SwitchDirection(transform.forward.z); //ubija me, ne treba za sad
+        CollideLookOffset();
 
 
         if (cc.isGrounded && !impulseLeap)
@@ -309,6 +312,32 @@ public class Player : MonoBehaviour
 
     }
 
+    void CollideLookOffset()
+    {
+        if (!collideLookAt)
+            return;
+        //raycast from characetr offset to look offset;
+        RaycastHit hit;
+        Vector3 startPosition = transform.position + Vector3.up * camScript.Lookoffset.y;
+        Vector3 endPosition = transform.position + camScript.Lookoffset;
+        Vector3 dir = endPosition - startPosition;
+        dir.y = 0;
+
+
+        // Does the ray intersect any objects excluding the player layer
+        if (Physics.Raycast(startPosition, dir.normalized, out hit, dir.magnitude, lookAtCollisionLayers, QueryTriggerInteraction.Ignore))
+        {
+            //Debug.Log("Did Hit");
+            camScript.Lookoffset = hit.point - transform.position;
+            //Debug.DrawLine(startPosition, hit.point, Color.red);
+        }
+        //else
+        //{
+        //    Debug.DrawLine(startPosition, endPosition, Color.yellow);
+            
+        //}
+    }
+
     void MoveLanes()
     {
         //if we are forced to move to a diffrent lane
@@ -364,13 +393,13 @@ public class Player : MonoBehaviour
         {
 
             lookOffsetTraget.z = Mathf.Abs(camLookOffsetStart.z);
-            lookOffsetTraget.z = Mathf.Lerp(camScript.lookoffset.z, lookOffsetTraget.z, switchDirectionLerp * Time.deltaTime);
+            lookOffsetTraget.z = Mathf.Lerp(camScript.Lookoffset.z, lookOffsetTraget.z, switchDirectionLerp * Time.deltaTime);
             camScript.Lookoffset = lookOffsetTraget;
         }
         else if (v < 0)
         {
             lookOffsetTraget.z = -Mathf.Abs(camLookOffsetStart.z);
-            lookOffsetTraget.z = Mathf.Lerp(camScript.lookoffset.z, lookOffsetTraget.z, switchDirectionLerp * Time.deltaTime);
+            lookOffsetTraget.z = Mathf.Lerp(camScript.Lookoffset.z, lookOffsetTraget.z, switchDirectionLerp * Time.deltaTime);
             camScript.Lookoffset = lookOffsetTraget;
         }
     }
