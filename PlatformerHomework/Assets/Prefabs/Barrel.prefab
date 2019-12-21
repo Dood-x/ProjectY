@@ -60,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -1444460858095362738, guid: 54cb11e4a7aa8b24391511523dc3a63d, type: 3}
+  - {fileID: 2100000, guid: 72c7635003ed1dc469b64b4811566439, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -125,3 +125,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageAmount: 10
   minDamagingVelocity: 0
+  despawnAfterTime: 1
+  despawnTime: 7
