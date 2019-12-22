@@ -86,6 +86,7 @@ public class Player : MonoBehaviour
     int jumpAmount = 0;
 
     //Vector3 moveDirection;
+    float timeAlive;
     float health;
     int crystals;
     int maxCrystals;
@@ -130,6 +131,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Cursor.visible = false;
         cc = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
 
@@ -171,7 +173,7 @@ public class Player : MonoBehaviour
         }
 
         //CheckMovingPlatform();
-        
+        timeAlive += Time.deltaTime;
         
         // movement input
         float v = Input.GetAxis("Horizontal") + Input.GetAxis("Vertical");
@@ -864,6 +866,21 @@ public class Player : MonoBehaviour
         Physics.IgnoreLayerCollision(8, 9, false);
         Respawn();
 
+    }
+
+    public int GetCrystals()
+    {
+        return crystals;
+    }
+
+    public float GetHealth()
+    {
+        return health;
+    }
+
+    public float GetTimeAlive()
+    {
+        return timeAlive;
     }
 
 }
