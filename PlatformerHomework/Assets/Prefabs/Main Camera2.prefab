@@ -144,6 +144,7 @@ MonoBehaviour:
   xSpeed: 1
   ySpeed: 1
   lockCameraYDuringCollision: 0
+  changeLookPositionWhenColliding: 0
   lerpCameraToDefault: 0
   yLerpSpeed: 20
   yMinLimit: 10

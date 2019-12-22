@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 973516734161616309}
   - component: {fileID: 4053719448423080857}
   - component: {fileID: 5098620983597128189}
-  m_Layer: 1
+  m_Layer: 10
   m_Name: DissapearingPlatform
   m_TagString: DissapearingPlatform
   m_Icon: {fileID: 0}
@@ -91,7 +91,7 @@ GameObject:
   - component: {fileID: 3672914162773012520}
   - component: {fileID: 3672914162773012527}
   - component: {fileID: 3672914162773012560}
-  m_Layer: 1
+  m_Layer: 10
   m_Name: DissapearingPlatform
   m_TagString: DissapearingPlatform
   m_Icon: {fileID: 0}

@@ -41,6 +41,8 @@ GameObject:
   - component: {fileID: 2817087021796686092}
   - component: {fileID: 5301385993731527798}
   - component: {fileID: 1308010036197766995}
+  - component: {fileID: 4851790607176009913}
+  - component: {fileID: 7426308982791352461}
   m_Layer: 1
   m_Name: portcullisOrg
   m_TagString: Untagged
@@ -180,6 +182,32 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!65 &4851790607176009913
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1243860326447516447}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 8, z: 4}
+  m_Center: {x: 0, y: 4, z: 6}
+--- !u!65 &7426308982791352461
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1243860326447516447}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 8, z: 4}
+  m_Center: {x: 0, y: 4, z: -6}
 --- !u!1 &2542460838047527475
 GameObject:
   m_ObjectHideFlags: 0

@@ -359,7 +359,8 @@ namespace PlatformerHomework{
 			set { lockCameraYDuringCollision = value; }
 		}
 
-		[SerializeField]
+
+        [SerializeField]
 		[Tooltip("Will the camera lerp to its default angle of viewing When the player lets go of the camera analog? (Doesn't work with mouse controls")]
 		private bool lerpCameraToDefault = true;
 		public bool LerpCameraToDefault
@@ -442,7 +443,7 @@ namespace PlatformerHomework{
 		
 		[SerializeField]
 		[Tooltip("Offset the camera look at target when in free cam mode, the camera will look at relative to the player origin, with this u can set the camera look at target a point relative to player characetr origin")]
-		public Vector3 lookoffset = new Vector3(0,2.5f,0);
+		private Vector3 lookoffset = new Vector3(0,2.5f,0);
 		public Vector3 Lookoffset
 		{
 			get { return lookoffset; }
@@ -1205,101 +1206,6 @@ namespace PlatformerHomework{
 			characterOffset = follow.position + new Vector3 (0f, lookoffset.y, 0f);
 			lookAt = follow.position + lookoffset;
 
-			// The camera will remain in lockon mode for lock for lockOnCoolDownTime time
-            // exit lock on
-            // if lock on is not a toggle exit when the button is released
-            // if lock on is a toggle exit when the button is pressed
-			if (enableLockOn && camstate == CamStates.LockOn && 
-                ((!lockOnToggle && GetCameraInput(lockOnButton, lockOnKeyCodes, ButtonPress.Up))
-                || (lockOnToggle && GetCameraInput(lockOnButton, lockOnKeyCodes, ButtonPress.Down) && lockOnToggleEngaged)))
-            {
-
-                if (lockOnToggle)
-                {
-                    lockOnTogglePressed = true;
-                    lockOnToggleEngaged = false;
-                }
-                else {
-				    StartCoroutine("LockOnCooldown");
-                }
-
-            }
-
-            // if lock on is a toggle keep the camstate in lock on and check if we exited the state
-            if (camstate == CamStates.LockOn && lockOnToggle)
-            {
-                // exit the state
-                if (lockOnToggleEngaged == false)
-                {
-                    camstate = CamStates.ThirdPersonCam;
-                }
-            }
-            // if lock on isnt toggle camstate is third person unless determined otherwise later
-            else
-            {
-                camstate = CamStates.ThirdPersonCam;
-            }
-
-
-            // lock on cooldown should still behave like lock on mode
-            if (LNcooldown)
-				camstate = CamStates.LockOn;
-
-
-            if (enableLockOn)
-            {
-                if ((lockOnToggle && GetCameraInput(lockOnButton, lockOnKeyCodes, ButtonPress.Down) && lockOnTarget != null && !lockOnTogglePressed) 
-                    || (!lockOnToggle && GetCameraInput(lockOnButton, lockOnKeyCodes, ButtonPress.Held) && lockOnTarget != null))
-                {
-                    camstate = CamStates.LockOn;
-
-                    if (lockOnToggle)
-                    {
-                        lockOnToggleEngaged = true;
-                        lockOnTogglePressed = true;
-                    }
-                }
-                
-            }
-
-            if (enableCamReset && !(camstate == CamStates.LockOn) && GetCameraInput(cameraResetButton, cameraResetKeyCodes, ButtonPress.Down))
-            {
-                camstate = CamStates.ResetCam;
-            }
-
-
-
-			// switch state to Lock On
-			if (/* Input.GetButtonDown (lockOnButton) */enableLockOn && GetCameraInput(lockOnButton, lockOnKeyCodes, ButtonPress.Down) 
-                && ((lockOnToggleEngaged) || !lockOnToggle)) {
-
-
-				if (lockOnTarget != null){ // used to be checking for length of lockontargets
-					StopCoroutine("LockOnCooldown");
-					LNcooldown = false;
-					//set inital angles and distance
-					lockOnLookAt = (characterOffset + lockOnTarget.transform.position) / 2;
-
-					//yLockon - angle distance and floor distance
-					//xLockon - angle floordistance and floor forward
-					Vector3 floorDistance = transform.position - lockOnLookAt;
-					floorDistance.y = 0; //floor distance vector
-
-
-					xLockOn = Vector3.Angle(-Vector3.forward, floorDistance);
-					if(floorDistance.x > 0){
-						xLockOn = 360-xLockOn;
-					}
-
-					//rotate by phase of x
-					xLockOn = CalculateAngleByPhaseOfX(x, xLockOn);
-
-                    angleLimitCurrent = angleLimitStart;
-
-
-                }
-
-			}
 
             lockOnTogglePressed = false;
 
@@ -1469,9 +1375,12 @@ namespace PlatformerHomework{
 
 			targetPosition = position;
 
-			bool hitSomething = BoxCastWallCollision(characterOffset, ref targetPosition, collisionYlock);
+            bool hitSomething = false;
 
-			if(collisionYlock && hitSomething)
+            
+            hitSomething = BoxCastWallCollision(characterOffset, ref targetPosition, collisionYlock);
+
+            if (collisionYlock && hitSomething)
 			{
 				BoxCastWallCollision(characterOffset, ref targetPosition, false);
 			}
@@ -1501,6 +1410,9 @@ namespace PlatformerHomework{
 			this.transform.position = newPosition;
 
 		}
+
+        
+
 
 		private int CalculatePhaseOfAngle(float angle, float shift = 180.0f)
 		{
