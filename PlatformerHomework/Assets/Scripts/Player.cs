@@ -537,7 +537,7 @@ public class Player : MonoBehaviour
 
     void WriteCrystals()
     {
-        crystalsTxt.text = "Crystals: " + crystals + "/" + maxCrystals;
+        crystalsTxt.text = "Crystals: " + crystals;
     }
 
     public void OnTriggerEnter(Collider other)
