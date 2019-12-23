@@ -74,6 +74,7 @@ public class EndLevelTrigger : MonoBehaviour
     public void RestartLevel()
     {
         SceneManager.LoadScene(1);
+        Time.timeScale = 1f;
     }
 
     public void QuitGame()
